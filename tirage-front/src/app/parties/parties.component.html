@@ -1,9 +1,9 @@
-<div class="example-wrapper">
+<div class="container">
     <h1>Hello PartieController! ✅</h1>
 
     <a class="btn btn-primary" [routerLink]="'/parties/create'">Ajout</a>
 
-    <table class="table">
+    <table mat-table class="mat-elevation-z8">
         <thead>
             <tr>
                 <th scope="col">id</th>
@@ -19,7 +19,7 @@
                 <td>{{ partie.name }}</td>
                 <td>{{ partie.createur.name }}</td>
                 <td>
-                    @if(userId === partie.createurId) {
+                    @if(userId === partie.createur) {
                     <button class="btn btn-primary" [routerLink]="'/parties/' + partie.id + '/edit'">Modifier</button>
 
                     <button class="btn btn-danger" (click)="deletePartie(partie.id)">Supprimer</button>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MesPartiesService } from '../services/mes-parties.service';
 import { LoginService } from '../../login/services/login.service';
 import { Observable } from 'rxjs';
@@ -10,7 +10,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 @Component({
     selector: 'app-mes-parties-restrictions',
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule, MatCheckboxModule, FormsModule],
+    imports: [CommonModule, ReactiveFormsModule, MatCheckboxModule, FormsModule, RouterLink, RouterLinkActive],
     templateUrl: './mes-parties-restrictions.component.html',
     styleUrl: './mes-parties-restrictions.component.scss'
 })
@@ -26,6 +26,8 @@ export class MesPartiesRestrictionsComponent implements OnInit {
 
     restrictionForm !: FormGroup
 
+    restrictions : any[] = []
+    roleUser !: any
 
     ngOnInit(): void {
         const idParam = this.route.snapshot.paramMap.get('id') || "";
@@ -35,8 +37,23 @@ export class MesPartiesRestrictionsComponent implements OnInit {
                 this.userId = u.id
             }
         })
-        this.users = this.mesPartiesServices.users
+        this.roleUser = this.mesPartiesServices.roleUser
         console.log(this.users)
+
+        this.mesPartiesServices.getRestrictions(this.partieId).subscribe({
+            next:(data) => {
+                this.restrictions = data.restrictions
+                console.log(this.restrictions)
+            }
+        })
+
+        this.mesPartiesServices.getUsersPartie(this.partieId).subscribe({
+            next:(data) => {
+                this.users = data.users
+                this.roleUser = data.role[0].role
+                console.log(this.roleUser)
+            }
+        })
 
         this.restrictionForm = this.fb.group({
             joueur: [null, [Validators.required]],
@@ -55,13 +72,33 @@ export class MesPartiesRestrictionsComponent implements OnInit {
             this.mesPartiesServices.addRestriction(this.partieId, restrictionData).subscribe({
                 next: () => {
                     console.log('Restriction ajoutée avec succès');
-                    this.router.navigateByUrl('/mesParties/view/' + this.partieId)
+                    this.mesPartiesServices.getRestrictions(this.partieId).subscribe({
+                        next: (data) => {
+                            this.restrictions = data.restrictions
+                        }
+                    })
                 },
                 error: (err) => {
                     console.error('Erreur lors de l ajout de la restriction', err);
                 }
             });
         }
+    }
+
+    deleteRestriction(id: number, idRestriction: number) {
+        this.mesPartiesServices.deleteRestriction(id, idRestriction).subscribe({
+            next: () => {
+                console.log("Restriction supprimée")
+                this.mesPartiesServices.getRestrictions(this.partieId).subscribe({
+                    next: (data) => {
+                        this.restrictions = data.restrictions;
+                    },
+                    error: (err) => {
+                        console.error('Erreur lors de la récupération des parties-view', err);
+                    }
+                });
+            }
+        })
     }
 
 }

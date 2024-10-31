@@ -188,16 +188,6 @@ class MesPartiesController extends AbstractController
         return $this->json(['success' => 'Tirage effectué avec succès']);
     }
 
-    private function tirageValide(array $participants, array $destinataires): bool
-    {
-        foreach ($participants as $index => $participant) {
-            if ($participant === $destinataires[$index]) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     private function tirageValideRestriction(int $idPartie, User $joueur, User $interdit, RestrictionRepository $restrictionRepository): bool
     {
         $restriction = $restrictionRepository->findRestriction($idPartie, $joueur->getId(), $interdit->getId());
@@ -239,67 +229,37 @@ class MesPartiesController extends AbstractController
     }
 
 
-    #[Route('/mes-parties/souhaits/{id}/{idUser}', name: 'souhaits_view')]
-    public function voirSouhaits(PartieRejointRepository $partieRejointRepository, PartieRepository $partieRepo, $id, $idUser, UserRepository $userRepository, TirageResultatRepository $tirageResultatRepository): Response
+    #[Route('/api/mesParties/souhaits/{id}/{idUser}', name: 'souhaits_view')]
+    public function getSouhaits(Partie $partie,PartieRejointRepository $partieRejointRepository, PartieRepository $partieRepo, $id, $idUser, UserRepository $userRepository, TirageResultatRepository $tirageResultatRepository): Response
     {
-        $partie = $partieRepo->find($id);
 
-        $userId = $this->getUser()->getId();
-        $partiesRejoints = $partieRejointRepository->findByPartieId($partie->getId());
-        foreach ($partiesRejoints as $partieRejoint) {
-            if ($idUser == $partieRejoint['userId']) {
-                $souhaits = $partieRejoint['souhaits'];
-            }
-        }
-        $users = $userRepository->findAll();
+        $user = $this->getUser()->getId();
+        $partiesRejoints = $partieRejointRepository->findby(['partie'=>$partie,'user'=>$user]);
 
-        return $this->render('mes_parties/view.html.twig', [
-            'partie' => $partie,
-            'partiesRejoints' => $partiesRejoints,
-            'users' => $users,
-            'souhaits' => $souhaits
-        ]);
+        return $this->json(['souhaits' => $partiesRejoints], 200, [], ['groups' => 'souhaits']);
+
     }
 
-    #[Route('/mes-parties/{id}/addSouhait', name: 'mes_parties_addSouhait')]
-    public function addSouhait(PartieRepository $partieRepo, PartieRejointRepository $partieRejointRepository, Request $request, EntityManagerInterface $em, $id): Response
+    #[Route('/api/mesParties/{id}/updateSouhaits', name: 'updateSouhaits')]
+    public function updateSouhaits(Partie $partie, PartieRejointRepository $partieRejointRepository, Request $request, EntityManagerInterface $em, $id): Response
     {
-        $partie = $partieRepo->find($id);
         $user = $this->getUser();
-        if (!$partie) {
-            throw $this->createNotFoundException('La partie demandée n\'existe pas.');
-        }
-
+        $data = json_decode($request->getContent(), true);
         $partieRejoint = $partieRejointRepository->findOneBy([
             'partie' => $partie,
             'user' => $user
         ]);
-        if (!$partieRejoint) {
-            throw $this->createNotFoundException('Le participant à la partie n\'existe pas.');
-        }
+        $partieRejoint->setSouhaits($data);
+        $em->persist($partieRejoint);
+        $em->flush();
 
-        $form = $this->createForm(SouhaitType::class, $partieRejoint);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
-
-            $this->addFlash('success', 'Modification Réussie');
-            return $this->redirectToRoute('mes_parties_view', [
-                'id' => $id,
-            ]);
-        }
-
-        return $this->render('mes_parties/edit.html.twig', [
-            'partieRejoint' => $partieRejoint,
-            'form' => $form->createView()
-        ]);
+        return $this->json(['success' => 'Souhait ajouté avec succès']);
     }
 
-    #[Route('/mes-parties/view/{id}/{idUser}', name: 'mes_parties_kick_user', methods: ['DELETE'])]
-    public function kick(PartieRepository $partieRepo, RestrictionRepository $restrictionRepository, PartieRejointRepository $partieRejointRepository, int $idUser, int $id, EntityManagerInterface $em)
+
+    #[Route('/api/mesParties/view/{id}/{idUser}', name: 'mes_parties_kick_user', methods: ['DELETE'])]
+    public function kick(Partie $partie, RestrictionRepository $restrictionRepository, PartieRejointRepository $partieRejointRepository, int $idUser, EntityManagerInterface $em)
     {
-        $partie = $partieRepo->find($id);
         $restriction = $restrictionRepository->findOneBy(['joueur' => $idUser, 'partie'=>$partie ]);
         if($restriction) {
             $em->remove($restriction);
@@ -307,7 +267,15 @@ class MesPartiesController extends AbstractController
         $user = $partieRejointRepository->findOneBy(['user' => $idUser]);
         $em->remove($user);
         $em->flush();
-        $this->addFlash('success', 'Suppression Réussie');
-        return $this->redirectToRoute('mes_parties_view', ['id' => $id]);
+        return $this->json(['success' => 'Joueur ejecté avec succès']);
+    }
+
+    #[Route('/api/mesParties/view/{id}/restriction/getUsers', name: 'mes_parties_getUserParties')]
+    public function getUserParties(Partie $partie, PartieRejointRepository $partieRejointRepository) {
+        $role = $partieRejointRepository->findBy(['partie'=>$partie, 'user'=> $this->getUser()->getId()]);
+        $partiesRejoints = $partieRejointRepository->findBy(['partie'=>$partie]);
+
+        return $this->json(['users' => $partiesRejoints, 'role'=>$role], 200, [], ['groups' => 'getUsersPartie']);
+
     }
 }

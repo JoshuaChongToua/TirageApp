@@ -5,11 +5,12 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { LoginService } from '../login/services/login.service';
 import { Observable } from 'rxjs';
 import { Partie } from './interface/partie.interface';
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
     selector: 'app-parties',
     standalone: true,
-    imports: [RouterLink, RouterLinkActive],
+    imports: [RouterLink, RouterLinkActive, MatTableModule],
     templateUrl: './parties.component.html',
     styleUrls: ['./parties.component.scss']
 })
@@ -19,6 +20,8 @@ export class PartiesComponent implements OnInit {
     partiesRejoints: any[] = [];
     userId !: any
     currentUser!: Observable<any>
+
+    displayedColumns: string[] = ['id', 'name', 'option'];
 
     constructor(private partiesService: PartiesService, private loginService: LoginService, private router: Router) {
         this.currentUser = this.loginService.userConnected$

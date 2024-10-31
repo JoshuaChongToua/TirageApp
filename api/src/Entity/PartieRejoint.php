@@ -20,17 +20,18 @@ class PartieRejoint
     private ?Partie $partie = null;
 
     #[ORM\ManyToOne(inversedBy: 'partieRejoints')]
-    #[Groups(['mes_parties_view', 'mes_parties', 'partie', 'partie_view'])]
+    #[Groups(['mes_parties_view', 'mes_parties', 'partie', 'partie_view', 'souhaits', 'getUsersPartie'])]
     private ?User $user = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['mes_parties_view', 'mes_parties', 'partie', 'partie_view'])]
+    #[Groups(['mes_parties_view', 'mes_parties', 'partie', 'partie_view', 'getUsersPartie'])]
     private ?string $role = null;
 
     #[ORM\Column(type: 'simple_array', nullable: true)]
+    #[Groups(['souhaits'])]
     private ?array $souhaits = [];
 
-
+    
     public function getId(): ?int
     {
         return $this->id;

@@ -17,6 +17,7 @@ import { MesPartiesEditComponent } from './mes-parties/mes-parties-edit/mes-part
 import { MesPartiesViewComponent } from './mes-parties/mes-parties-view/mes-parties-view.component';
 import { MesPartiesRestrictionsComponent } from './mes-parties/mes-parties-restrictions/mes-parties-restrictions.component';
 import { AuthGuard } from './auth.guard';
+import { MesPartiesSouhaitsComponent } from './mes-parties/mes-parties-souhaits/mes-parties-souhaits.component';
 // import { HomeComponent } from './home/home.component';
 // import { VoituresComponent } from './voitures/voitures.component';
 // import { CategoriesComponent } from './categories/categories.component';
@@ -37,6 +38,7 @@ export const routes: Routes = [
     { path: 'mesParties/:id/edit', component: MesPartiesEditComponent, canActivate: [AuthGuard] },
     { path: 'mesParties/view/:id', component: MesPartiesViewComponent, canActivate: [AuthGuard] },
     { path: 'mesParties/:id/restriction', component: MesPartiesRestrictionsComponent, canActivate: [AuthGuard] },
+    { path: 'mesParties/:id/addSouhait', component: MesPartiesSouhaitsComponent, canActivate: [AuthGuard] },
     { path: 'user', component: UsersComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
     { path: '**', redirectTo: '' }

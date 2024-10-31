@@ -3,7 +3,7 @@
         <label for="joueur">Joueur </label>
         <select id="joueur" formControlName="joueur" required>
             @for (user of users; track user) {
-                <option value="{{user.id}}">{{user.name}}</option>
+                <option value="{{user.user.id}}">{{user.user.name}}</option>
             }
         </select>
     </div>
@@ -11,14 +11,40 @@
         <label for="interdit">Interdit </label>
         <select id="interdit" formControlName="interdit" required>
             @for (user of users; track user) {
-            <option value="{{user.id}}">{{user.name}}</option>
+            <option value="{{user.user.id}}">{{user.user.name}}</option>
             }
         </select>
     </div>
+    <button class="btn btn-warning" type="submit" (click)="sendRestritionForm()">Ajouter</button>
+    <button class="btn btn-secondary" type="submit" [routerLink]="'/mesParties/view/'+partieId">Retour</button>
 
-    <!-- <mat-checkbox formControlName="no_password" (change)="onCheckboxChange()">
-        Sans Mot de Passe
-    </mat-checkbox> -->
-
-    <button type="submit" (click)="sendRestritionForm()">Modifier</button>
 </form>
+
+<div class="example-wrapper">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Joueur</th>
+                <th scope="col">Interdit</th>
+                @if (roleUser == 'hote') {
+                <th scope="col">option</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @for (restriction of restrictions; track restriction) {
+            <tr>
+                <td>{{restriction.joueur.name}}</td>
+                <td>{{restriction.interdit.name}}</td>
+                @if (roleUser == 'hote') {
+                <td>
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn btn-danger"
+                        (click)="deleteRestriction(partieId, restriction.id)">Supprimer</button>
+                </td>
+                }
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

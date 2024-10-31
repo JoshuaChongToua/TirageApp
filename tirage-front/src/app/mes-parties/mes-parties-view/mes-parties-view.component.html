@@ -5,14 +5,16 @@
 
         @if (roleUser == "hote") {
             <a class="btn btn-primary" [routerLink]="'/mesParties/' + partieId + '/edit'">Modifier</a>
+            @if (tirageResultats.length == 0) {
+                <a class="btn btn-warning" (click)="tirage(partieId)">Commencer le jeu</a>
+                <a class="btn btn-secondary" [routerLink]="'/mesParties/' + partieId + '/restriction'">Restriction</a>
+            }
+            @else {
+                <button type="submit" class="btn btn-warning" (click)="finPartie(partieId)">Fin de la partie</button>
+            }
         }
-        @if (tirageResultats.length == 0) {
-            <a class="btn btn-warning" (click)="tirage(partieId)">Commencer le jeu</a>
-            <a class="btn btn-secondary" [routerLink]="'/mesParties/' + partieId + '/restriction'">Restriction</a>
-        }
-        @else {
-            <button type="submit" class="btn btn-warning" (click)="finPartie(partieId)">Fin de la partie</button>
-        }
+        <a class="btn btn-primary" [routerLink]="'/mesParties/' + partieId + '/addSouhait'">Souhaits</a>
+
     </div>
 
 
@@ -36,7 +38,7 @@
                                 @if (roleUser == "hote" ) {
                                     @if (partieRejoint.partie.state == false) {
                                         @if (user.id != userId ) {
-                                            <button type="submit" class="btn btn-danger">Exclure</button>
+                                            <button type="submit" class="btn btn-danger" (click)="kick(user.id)">Exclure</button>
                                         }
                                     }
                                 }
@@ -85,33 +87,6 @@
                 }
             </ul>
         </div>
-    </div>
-    <div class="example-wrapper">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Joueur</th>
-                    <th scope="col">Interdit</th>
-                    @if (roleUser == 'hote') {
-                        <th scope="col">option</th>
-                    }
-                </tr>
-            </thead>
-            <tbody>
-                @for (restriction of restrictions; track restriction) {
-                    <tr>
-                        <td>{{restriction.joueur.name}}</td>
-                        <td>{{restriction.interdit.name}}</td>
-                        @if (roleUser == 'hote') {
-                        <td>
-                            <input type="hidden" name="_method" value="DELETE">
-                            <button type="submit" class="btn btn-danger" (click)="deleteRestriction(partieId, restriction.id)">Supprimer</button>
-                        </td>
-                    }
-                    </tr>
-                }
-            </tbody>
-        </table>
     </div>
 }@else{
 <mat-spinner></mat-spinner>

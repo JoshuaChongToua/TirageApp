@@ -53,7 +53,7 @@ export class MesPartiesEditComponent {
         if (formValue.no_password) {
             formValue.password = null;
         }
-        this.mesPartiesService.editPartie(this.partieId, this.partieForm.value).subscribe({
+        this.mesPartiesService.editPartie(this.partieId, formValue).subscribe({
             next: () => {
                 this.router.navigateByUrl('/mesParties/view/' + this.partieId)
             },

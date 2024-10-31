@@ -8,6 +8,7 @@ import { environment } from '../../../environment/environment.development';
 })
 export class MesPartiesService {
     users : any[] = []
+    roleUser !: any
 
     constructor(private http: HttpClient) { }
 
@@ -42,7 +43,26 @@ export class MesPartiesService {
         return this.http.put<any>(`${environment.apiURL}/api/mesParties/${id}/restriction/create`, restriction)
     }
 
+    getUsersPartie(id: number): Observable<any> {
+        return this.http.get<any>(`${environment.apiURL}/api/mesParties/view/${id}/restriction/getUsers`)
+    }
+
     deleteRestriction(id: number, idRestriction:number): Observable<any> {
         return this.http.delete<any>(`${environment.apiURL}/api/mesParties/${id}/restriction/${idRestriction}`);
     }
+
+    updateSouhaits(id: number, souhaits: any): Observable<any> {
+        return this.http.put<any>(`${environment.apiURL}/api/mesParties/${id}/updateSouhaits`, souhaits)
+    }
+
+    getSouhaits(id: number, idUser: any): Observable<any> {
+        return this.http.get<any>(`${environment.apiURL}/api/mesParties/souhaits/${id}/${idUser}`)
+    }
+
+    kick(id: number, idUser: number): Observable<any> {
+        return this.http.delete<any>(`${environment.apiURL}/api/mesParties/view/${id}/${idUser}`);
+    }
+
+
+
 }

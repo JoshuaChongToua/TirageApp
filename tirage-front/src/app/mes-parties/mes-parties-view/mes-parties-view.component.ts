@@ -55,6 +55,7 @@ export class MesPartiesViewComponent implements OnInit {
                     this.partie = partieR.partie.name
                     if (partieR.user.id == this.userId) {
                         this.roleUser = partieR.role
+                        this.mesPartiesServices.roleUser = this.roleUser
                     }
                     if (!valide) {
                         for (let tirage of partieR.partie.tirageResultats) {
@@ -139,18 +140,31 @@ export class MesPartiesViewComponent implements OnInit {
         })
     }
 
-    deleteRestriction(id: number, idRestriction: number) {
-        this.mesPartiesServices.deleteRestriction(id, idRestriction).subscribe({
-            next: () => {
-                console.log("Restriction supprimée")
-                this.mesPartiesServices.getRestrictions(this.partieId).subscribe({
+    kick(idUser: number) {
+        this.mesPartiesServices.kick(this.partieId, idUser).subscribe({
+            next:()=> {
+                console.log("Exclusion reussi")
+                this.mesPartiesServices.viewPartie(this.partieId).subscribe({
                     next: (data) => {
-                        this.restrictions = data.restrictions;
-                    },
-                    error: (err) => {
-                        console.error('Erreur lors de la récupération des parties-view', err);
+                        this.partie = data.partie;
+                        this.partiesRejoints = data.parties;
+                        let valide = false
+                        for (let partieR of this.partiesRejoints) {
+                            if (!valide) {
+                                for (let tirage of partieR.partie.tirageResultats) {
+                                    this.tirageResultats.push(tirage);
+                                    valide = true
+                                }
+                            }
+                        }
+                        // this.tirages = data.tirages;
+                        // this.roleUser = data.util;
+                        // this.restrictions = data.restrictions;
                     }
-                });
+                })
+            },
+            error:(err)=>{
+                console.log(err)
             }
         })
     }
