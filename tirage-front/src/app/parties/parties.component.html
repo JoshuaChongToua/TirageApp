@@ -1,0 +1,42 @@
+<div class="example-wrapper">
+    <h1>Hello PartieController! ✅</h1>
+
+    <a class="btn btn-primary" [routerLink]="'/parties/create'">Ajout</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">nom</th>
+                <th scope="col">Createur</th>
+                <th scope="col">option</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for(partie of parties; track partie) {
+            <tr>
+                <td><a [routerLink]="'/parties/view/' + partie.id">{{ partie.id }}</a></td>
+                <td>{{ partie.name }}</td>
+                <td>{{ partie.createur.name }}</td>
+                <td>
+                    @if(userId === partie.createurId) {
+                    <button class="btn btn-primary" [routerLink]="'/parties/' + partie.id + '/edit'">Modifier</button>
+
+                    <button class="btn btn-danger" (click)="deletePartie(partie.id)">Supprimer</button>
+                    }
+
+                    @if (!partie.state) {
+                        @if (!partie.hasJoined) {
+                            <button class="btn btn-warning" (click)="handleRejoindre(partie)">Rejoindre</button>
+                        } @else {
+                            <button class="btn btn-warning" (click)="quitter(partie.partieRejointId)">Quitter</button>
+                        }
+                    }@else{
+                        <p>Impossible de rejoindre, partie en cours</p>
+                    }
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,38 @@
+<div class="example-wrapper">
+    <!-- <div *ngIf="errorMessages.length" class="alert alert-danger" *ngFor="let message of errorMessages">
+    {{ message }}
+  </div>
+  <div *ngIf="successMessages.length" class="alert alert-success" *ngFor="let message of successMessages">
+    {{ message }}
+  </div> -->
+
+    <!-- Liste des joueurs -->
+    <div class="d-flex justify-content-start align-items-center">
+        <div class="card" style="width: 18rem;">
+            <div class="card-header">
+                Liste des joueurs
+            </div>
+            <ul class="list-group list-group-flush">
+                @for (partieRejoint of partiesRejoints; track partieRejoint) {
+                <li class="list-group-item">
+                    @for (user of users; track user) {
+                    <span>
+                        @if (user.id === partieRejoint.user.id) {
+                        <ng-container>
+                            {{ user.name }}
+                            @if (user.id === userId) {
+                            <span>(vous)</span>
+                            }
+                            @if (partieRejoint.role === 'hote') {
+                            <span>(hote)</span>
+                            }
+                        </ng-container>
+                        }
+                    </span>
+                    }
+                </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,77 @@
+
+###> symfony/framework-bundle ###
+/api/.env.local
+/api/.env.local.php
+/api/.env.*.local
+/api/config/secrets/prod/prod.decrypt.private.php
+/api/public/bundles/
+/api/var/
+/api/vendor/
+###< symfony/framework-bundle ###
+
+###> phpunit/phpunit ###
+/api/phpunit.xml
+/api.phpunit.result.cache
+###< phpunit/phpunit ###
+
+###> symfony/phpunit-bridge ###
+/api.phpunit.result.cache
+/api/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> symfony/asset-mapper ###
+/api/public/assets/
+/api/assets/vendor/
+###< symfony/asset-mapper ###
+
+###> lexik/jwt-authentication-bundle ###
+/api/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###
+
+# symfony/Node
+/api/node_modules
+
+
+#####Angular######
+# Compiled output
+/tirage-front/dist
+/tirage-front/tmp
+/tirage-front/out-tsc
+/tirage-front/bazel-out
+
+# Node
+/tirage-front/node_modules
+/tirage-front/npm-debug.log
+/tirage-front/yarn-error.log
+
+# IDEs and editors
+/tirage-front/.idea/
+/tirage-front/.project
+/tirage-front/.classpath
+/tirage-front/.c9/
+/tirage-front/*.launch
+/tirage-front/.settings/
+/tirage-front/*.sublime-workspace
+
+# Visual Studio Code
+/tirage-front/.vscode/*
+/tirage-front/!.vscode/settings.json
+/tirage-front/!.vscode/tasks.json
+/tirage-front/!.vscode/launch.json
+/tirage-front/!.vscode/extensions.json
+/tirage-front/.history/*
+
+# Miscellaneous
+/tirage-front/.angular/cache
+/tirage-front/.sass-cache/
+/tirage-front/connect.lock
+/tirage-front/coverage
+/tirage-front/libpeerconnection.log
+/tirage-front/testem.log
+/tirage-front/typings
+
+# System files
+/tirage-front/.DS_Store
+/tirage-front/Thumbs.db
+
+

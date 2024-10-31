@@ -1,0 +1,24 @@
+<form [formGroup]="restrictionForm">
+    <div>
+        <label for="joueur">Joueur </label>
+        <select id="joueur" formControlName="joueur" required>
+            @for (user of users; track user) {
+                <option value="{{user.id}}">{{user.name}}</option>
+            }
+        </select>
+    </div>
+    <div>
+        <label for="interdit">Interdit </label>
+        <select id="interdit" formControlName="interdit" required>
+            @for (user of users; track user) {
+            <option value="{{user.id}}">{{user.name}}</option>
+            }
+        </select>
+    </div>
+
+    <!-- <mat-checkbox formControlName="no_password" (change)="onCheckboxChange()">
+        Sans Mot de Passe
+    </mat-checkbox> -->
+
+    <button type="submit" (click)="sendRestritionForm()">Modifier</button>
+</form>

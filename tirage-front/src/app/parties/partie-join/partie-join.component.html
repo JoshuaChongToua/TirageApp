@@ -1,0 +1,9 @@
+<h2>Rejoindre la Partie</h2>
+
+<form [formGroup]="passwordForm">
+  <label for="password">Mot de passe de la partie :</label>
+  <input id="password" type="password" formControlName="password" required>
+
+  <button type="submit" (click)="rejoindrePartie()">Rejoindre</button>
+</form>
+
