@@ -3,31 +3,47 @@ import { Component, OnInit } from '@angular/core';
 import { PartiesService } from './services/parties.service';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { LoginService } from '../login/services/login.service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Partie } from './interface/partie.interface';
 import { MatTableModule } from '@angular/material/table';
+import { LoaderComponent } from '../loader/loader.component';
+import { CommonModule } from '@angular/common';
+
+
 
 @Component({
     selector: 'app-parties',
     standalone: true,
-    imports: [RouterLink, RouterLinkActive, MatTableModule],
+    imports: [RouterLink, RouterLinkActive, MatTableModule, LoaderComponent, CommonModule],
     templateUrl: './parties.component.html',
     styleUrls: ['./parties.component.scss']
 })
-export class PartiesComponent implements OnInit {
 
+
+export class PartiesComponent implements OnInit {
     parties: any[] = [];
     partiesRejoints: any[] = [];
     userId !: any
     currentUser!: Observable<any>
 
-    displayedColumns: string[] = ['id', 'name', 'option'];
+
+    private _isPartiesLoading$ = new BehaviorSubject<boolean>(false)
+    get _isPartiesLoading() {
+        return this._isPartiesLoading$.asObservable()
+    }
+
+    //test
 
     constructor(private partiesService: PartiesService, private loginService: LoginService, private router: Router) {
         this.currentUser = this.loginService.userConnected$
     }
 
+
+
+
+
     ngOnInit(): void {
+        this._isPartiesLoading$.next(true)
         this.currentUser.subscribe(u => {
             if (u) {
                 this.userId = u.id
@@ -51,8 +67,10 @@ export class PartiesComponent implements OnInit {
                     partie.hasJoined = !!joinedPartie;
                     partie.partieRejointId = joinedPartie ? joinedPartie.id : null;
                 });
+                this._isPartiesLoading$.next(false)
             },
             error: (err) => {
+                this._isPartiesLoading$.next(false)
                 console.error('Erreur lors de la récupération des parties', err);
             }
         });
