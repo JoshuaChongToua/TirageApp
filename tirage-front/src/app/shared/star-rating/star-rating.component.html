@@ -1,0 +1,10 @@
+<mat-card>
+    <div class="star-rating-container star-rating-animation">
+        @for (star of stars; track $index) {
+            <div [ngClass]="[star.class]" (click)="selectStar(star.id)">
+                <mat-icon>{{star.icon}}</mat-icon>
+            </div>
+        }
+    </div>
+</mat-card>
+

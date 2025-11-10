@@ -1,0 +1,17 @@
+<div class="bloc">
+    <div class="left">
+        <div class="image-event">
+            <img src="https://image.tmdb.org/t/p/w342{{event.poster_path}}" alt="{{event.title}}">
+        </div>
+    </div>
+    <div class="right">
+        <div class="title"><span>Titre :</span> {{event.title}}</div>
+        <div class="title"><span>Statut :</span> {{eventDetail()?.status}}</div>
+        <div class="title"><span>Date de sortie :</span> {{eventDetail()?.release_date}}</div>
+        <div class="title"><span>Origine :</span> {{eventDetail()?.origin_country}}</div>
+        <div class="title"><span>Genres :</span> {{getGenres()}}</div>
+        <div class="title"><span>Résumé :</span> {{event.overview}}</div>
+
+        <button class="btn-main" (click)="addNoteAndAvis(event)">Ajouter un avis</button>
+    </div>
+</div>

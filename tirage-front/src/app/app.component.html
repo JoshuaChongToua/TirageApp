@@ -1,9 +1,13 @@
 <div class="main">
-  <app-navbar></app-navbar>
+    <div class="header">
+        <app-navbar></app-navbar>
+    </div>
 
+    <div class="main-body">
+        <app-main>
+            <router-outlet></router-outlet>
+        </app-main>
+    </div>
 
-  <app-main>
-    <router-outlet></router-outlet>
-  </app-main>
 
 </div>

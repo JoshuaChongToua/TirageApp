@@ -7,7 +7,7 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "sass"
         }
       },
       "root": "",
@@ -33,7 +33,7 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/magenta-violet.css",
-              "src/styles.scss"
+              "src/styles.sass"
             ],
             "scripts": []
           },
@@ -93,7 +93,7 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/magenta-violet.css",
-              "src/styles.scss"
+              "src/styles.sass"
             ],
             "scripts": []
           }

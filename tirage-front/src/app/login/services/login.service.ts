@@ -39,7 +39,7 @@ export class LoginService {
                 console.log("Connecté", data);
                 this.getConnectedUser()
                 this._isLogged$.next(true)
-                this.router.navigateByUrl('/')
+                this.router.navigateByUrl('/films-series')
             },
             error: (err: any) => {
                 console.log("Errrrrrrrreeeeeeurrrr", err)
@@ -73,11 +73,7 @@ export class LoginService {
     }
 
     isLoggedIn() {
-        if (this.isTokenExpire() == false) {
-            return true;
-        } else {
-            return false;
-        }
+        return !this.isTokenExpire();
     }
 
     // Méthode pour obtenir le token
