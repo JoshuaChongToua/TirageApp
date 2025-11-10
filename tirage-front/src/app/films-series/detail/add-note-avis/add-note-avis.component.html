@@ -4,7 +4,8 @@
     <div class="form" [formGroup]="noteAvisForm">
         <mat-form-field appearance="outline">
             <mat-label>Avis</mat-label>
-            <textarea matInput type="text" formControlName="avis"></textarea>
+            <textarea matInput type="text" formControlName="avis" rows="6"></textarea>
         </mat-form-field>
     </div>
+        <button [ngClass]="noteAvisForm.valid ? 'btn-main' : 'btn-main disabled'" [disabled]="!noteAvisForm.valid" (click)="addNoteAvis()">Valider</button>
 </div>

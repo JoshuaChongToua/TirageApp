@@ -9,7 +9,7 @@ import { LoginService } from '../login/services/login.service';
     standalone: true,
     imports: [RouterLink, RouterLinkActive, CommonModule],
     templateUrl: './navbar.component.html',
-    styleUrl: './navbar.component.scss'
+    styleUrl: './navbar.component.sass'
 })
 export class NavbarComponent {
     currentUser!: Observable<any>

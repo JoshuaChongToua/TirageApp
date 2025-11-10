@@ -5,7 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import {MainPageComponent} from "./films-series/main-page/main-page.component";
 import {FilmsSeriesComponent} from "./films-series/films-series.component";
-import {DetailComponent} from "./films-series/detail/detail.component";
+import {SearchComponent} from "./films-series/search/search.component";
 
 
 export const routes: Routes = [
@@ -14,7 +14,7 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'films-series', component: FilmsSeriesComponent },
     { path: 'main-page', component: MainPageComponent },
-    // { path: 'detail/:nom', component: DetailComponent },
+    { path: 'search', component: SearchComponent },
     { path: '**', redirectTo: '' }
 ];
 

@@ -5,6 +5,7 @@ import {MatInput} from "@angular/material/input";
 import {FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {AddNoteAvisService} from "./services/add-note-avis.service";
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-add-note-avis',
@@ -14,7 +15,8 @@ import {MAT_DIALOG_DATA} from "@angular/material/dialog";
         MatFormField,
         MatInput,
         MatLabel,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgClass
     ],
   templateUrl: './add-note-avis.component.html',
   styleUrl: './add-note-avis.component.sass'
@@ -28,6 +30,10 @@ export class AddNoteAvisComponent {
 
     ngOnInit() {
         this.noteAvisForm.get('titreId')?.setValue(this.data.titre.id);
+    }
+
+    addNoteAvis() {
+        this.addNoteAvisService.addNoteAvis()
     }
 
 }

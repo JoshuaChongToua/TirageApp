@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MatCard} from "@angular/material/card";
 import {NgClass} from "@angular/common";
 import {MatIcon} from "@angular/material/icon";
+import {AddNoteAvisService} from "../../films-series/detail/add-note-avis/services/add-note-avis.service";
 
 @Component({
     selector: 'app-star-rating',
@@ -47,7 +48,7 @@ export class StarRatingComponent implements OnInit {
 
     ];
 
-    constructor() {}
+    constructor(private addNoteAvisService: AddNoteAvisService) {}
 
     ngOnInit(): void {
 
@@ -56,29 +57,23 @@ export class StarRatingComponent implements OnInit {
 
     selectStar(value: any): void{
 
-        // prevent multiple selection
-        if ( this.selectedRating === 0){
+        this.stars.filter( (star) => {
 
-            this.stars.filter( (star) => {
+            if ( star.id <= value){
 
-                if ( star.id <= value){
+                star.class = 'star-gold star';
 
-                    star.class = 'star-gold star';
+            }else{
 
-                }else{
+                star.class = 'star-gray star';
 
-                    star.class = 'star-gray star';
+            }
 
-                }
-
-                return star;
-            });
-
-        }
+            return star;
+        });
 
         this.selectedRating = value;
-
-
+        this.addNoteAvisService.noteAvisForm.get('note')?.patchValue(this.selectedRating);
     }
 
 }

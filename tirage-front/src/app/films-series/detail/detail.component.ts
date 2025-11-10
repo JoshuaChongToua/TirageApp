@@ -38,7 +38,7 @@ export class DetailComponent implements OnInit {
         this.dialog.open(AddNoteAvisComponent, {
             width: '750px',
             maxHeight: '95vh',
-            height: '500px',
+            height: '400px',
             data: {
                 titre: titre,
             }
