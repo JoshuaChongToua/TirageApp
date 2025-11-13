@@ -1,4 +1,4 @@
-<app-star-rating></app-star-rating>
+<app-star-rating [context]="'add-avis-page'"></app-star-rating>
 
 <div class="bloc">
     <div class="form" [formGroup]="noteAvisForm">
@@ -6,6 +6,7 @@
             <mat-label>Avis</mat-label>
             <textarea matInput type="text" formControlName="avis" rows="6"></textarea>
         </mat-form-field>
+        <mat-slide-toggle formControlName="spoil">Spoil</mat-slide-toggle>
     </div>
         <button [ngClass]="noteAvisForm.valid ? 'btn-main' : 'btn-main disabled'" [disabled]="!noteAvisForm.valid" (click)="addNoteAvis()">Valider</button>
 </div>

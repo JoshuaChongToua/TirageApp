@@ -4,6 +4,9 @@
     display: flex
     justify-content: center
 
+    &.avis-display
+        padding: 0
+
 .star
     margin: 0 0
     color: #a9a5a5
@@ -12,9 +15,26 @@
     transition: all .3s
     transform: scale(1)
 
-.star .mat-icon
-    width: 40px
-    height: 40px
+.star
+    .mat-icon
+        display: flex
+        align-items: center
+
+        &.avis-page
+            width: 20px
+            height: 20px
+            font-size: 12px
+            justify-content: flex-start
+
+        &.detail-page
+            font-size: 20px
+
+        &.add-avis-page
+            width: 40px
+            height: 40px
+            justify-content: center
+
+
 
 .star-gold
     color: orange

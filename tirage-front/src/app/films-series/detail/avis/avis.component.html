@@ -1,0 +1,10 @@
+<div class="bloc container-grid">
+    <ag-grid-angular class="ag-theme-alpine" [style]="{height: '80vh',width: 'auto'}" [columnDefs]="colDefs"
+                     [rowData]="rowData" [animateRows]="true"
+                     [pagination]="true" [paginationPageSize]="paginationPageSize" (gridReady)="onGridReady($event)"
+                     [gridOptions]="gridOptions" [suppressRowHoverHighlight]="true"
+                     (firstDataRendered)="firstDataRendered($event)"
+                     [context]="context" [fullWidthCellRenderer]="fullWidthCellRenderer"
+                     [rowHeight]="rowHeightCustom" [headerHeight]="0" [isFullWidthRow]="isFullWidthRow">
+    </ag-grid-angular>
+</div>

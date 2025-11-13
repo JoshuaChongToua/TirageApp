@@ -1,0 +1,26 @@
+<div class="bloc">
+    <div class="first-line">
+        <div class="user">
+            {{donnees.user}}
+        </div>
+        <div class="date">
+            Posté le {{donnees.date | date: 'dd/mm/yyyy'}}
+        </div>
+    </div>
+    <div class="second-line">
+        <div class="note">
+            <app-star-rating [note]="donnees.note" [context]="'avis-page'"></app-star-rating>
+        </div>
+    </div>
+    <div class="third-line">
+        <div class="avis">
+            @if (!showSpoil && donnees.spoil) {
+                <button class="anti-spoil" (click)="showSpoiler()">
+                    Montrer
+                </button>
+            }
+            <span [ngClass]="!showSpoil && donnees.spoil ? 'spoil' : ''">{{donnees.avis}}</span>
+        </div>
+    </div>
+
+</div>

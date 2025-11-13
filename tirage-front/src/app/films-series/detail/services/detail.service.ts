@@ -8,6 +8,7 @@ import {HttpClient} from "@angular/common/http";
 export class DetailService {
 
     event : WritableSignal<any> = signal(null)
+    noteAverage: WritableSignal<any> = signal(null)
 
     constructor(private http: HttpClient) { }
 
@@ -15,6 +16,14 @@ export class DetailService {
         this.http.get("https://api.themoviedb.org/3/movie/" + id + "?api_key=" + environment.apiKey2 + "&language=fr-FR").subscribe({
             next: (data: any) => {
                 this.event.set(data);
+            }
+        })
+    }
+
+    getNoteAverage(id: number) {
+        this.http.post(environment.apiURL + "/api/getNoteAverage", {titreId: id}).subscribe({
+            next: (data: any) => {
+                this.noteAverage.set(data);
             }
         })
     }

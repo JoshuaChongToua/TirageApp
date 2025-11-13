@@ -5,13 +5,27 @@
         </div>
     </div>
     <div class="right">
-        <div class="title"><span>Titre :</span> {{event.title}}</div>
-        <div class="title"><span>Statut :</span> {{eventDetail()?.status}}</div>
-        <div class="title"><span>Date de sortie :</span> {{eventDetail()?.release_date}}</div>
-        <div class="title"><span>Origine :</span> {{eventDetail()?.origin_country}}</div>
-        <div class="title"><span>Genres :</span> {{getGenres()}}</div>
-        <div class="title"><span>Résumé :</span> {{event.overview}}</div>
-
+        <div class="onglet">
+            <div class="onglet-name" (click)="selectOnglet('info')">
+                Information
+            </div>
+            <div class="onglet-name" (click)="selectOnglet('avis')">
+                Avis
+            </div>
+        </div>
+        <div class="info">
+            @if (ongletToDisplay() === "info") {
+                <div class="title"><span>Titre :</span> {{event.title}}</div>
+                <div class="title"><span>Statut :</span> {{eventDetail()?.status}}</div>
+                <div class="title"><span>Date de sortie :</span> {{eventDetail()?.release_date}}</div>
+                <div class="title"><span>Origine :</span> {{eventDetail()?.origin_country}}</div>
+                <div class="title"><span>Genres :</span> {{getGenres()}}</div>
+                <div class="title"><span>Résumé :</span> {{event.overview}}</div>
+                <app-star-rating [note]="noteAverage()" [context]="'detail-page'"></app-star-rating>
+            } @else if (ongletToDisplay() === "avis") {
+                <app-avis [titre]="event"></app-avis>
+            }
+        </div>
         <button class="btn-main" (click)="addNoteAndAvis(event)">Ajouter un avis</button>
     </div>
 </div>
