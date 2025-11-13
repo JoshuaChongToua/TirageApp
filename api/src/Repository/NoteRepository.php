@@ -16,6 +16,16 @@ class NoteRepository extends ServiceEntityRepository
         parent::__construct($registry, Note::class);
     }
 
+    public function findNoteAverage($titreId)
+    {
+        return $this->createQueryBuilder('n')
+            ->select('AVG(n.note)')
+            ->where('n.titre_id = :id')
+            ->setParameter('id', $titreId)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     //    /**
     //     * @return Note[] Returns an array of Note objects
     //     */

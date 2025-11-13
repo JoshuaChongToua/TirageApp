@@ -17,10 +17,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['info_user', 'user_view', 'mes_parties_view', 'mes_parties', 'partie', 'partie_view', 'restrictions', 'souhaits', 'getUsersPartie'])]
+    #[Groups(['get_notes_avis'])]
     private ?int $id = null;
 
-    #[Groups(['info_user', 'user_view', 'mes_parties_view', 'mes_parties', 'partie', 'partie_view', 'restrictions', 'souhaits', 'getUsersPartie'])]
+    #[Groups(['get_notes_avis'])]
     #[ORM\Column(length: 180)]
     private ?string $name = null;
 

@@ -22,9 +22,21 @@ class NoteController extends AbstractController
         $data = json_decode($request->getContent(), true);
         $res = $this->noteRepository->findBy(['titre_id' => $data['titre_id']]);
         if ($res) {
-            return $this->json($res, 200, [], ['groups' => 'note']);
+            return $this->json($res, 200, [], ['groups' => 'get_notes_avis']);
         }
-        return $this->json(null, 200, [], ['groups' => 'note']);
+        return $this->json(null, 200);
+    }
+
+
+    #[Route('/api/getNoteAverage', name: 'get_notes_average', methods: ['POST'])]
+    public function getNoteAverage(Request $request): Response
+    {
+        $data = json_decode($request->getContent(), true);
+        $res = $this->noteRepository->findNoteAverage($data['titreId']);
+        if ($res) {
+            return $this->json($res, 200, [], ['groups' => 'get_notes_avis']);
+        }
+        return $this->json(null, 200);
     }
 
     #[Route('/api/addNoteAndAvis', name: 'add_note_and_avis', methods: ['POST'])]
@@ -35,6 +47,7 @@ class NoteController extends AbstractController
             $note = new Note();
             $note->setNote($data['note']);
             $note->setTitreId($data['titreId']);
+            $note->setSpoil($data['spoil']);
             $note->setUser($this->getUser());
             $note->setCreatedAt(new \DateTimeImmutable());
             if ($data['avis']) {
