@@ -44,6 +44,10 @@ class Note
     #[Groups(['note', 'get_notes_avis'])]
     private ?bool $spoil = null;
 
+    #[ORM\Column(length: 255)]
+    #[Groups(['note', 'get_notes_avis'])]
+    private ?string $type = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -129,6 +133,18 @@ class Note
     public function setSpoil(bool $spoil): static
     {
         $this->spoil = $spoil;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): static
+    {
+        $this->type = $type;
 
         return $this;
     }
