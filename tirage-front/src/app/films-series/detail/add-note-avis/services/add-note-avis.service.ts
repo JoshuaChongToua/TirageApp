@@ -15,12 +15,17 @@ export class AddNoteAvisService {
             note: [null, Validators.required],
             titreId: [null, Validators.required],
             avis: [null],
-            spoil: [null],
+            spoil: [false],
+			type: [null, Validators.required],
         });
     }
 
     addNoteAvis() {
         return this.http.post(environment.apiURL + "/api/addNoteAndAvis", this.noteAvisForm.value)
+    }
+
+    editNoteAndAvis() {
+        return this.http.post(environment.apiURL + "/api/editNoteAndAvis", this.noteAvisForm.value)
     }
 
 }

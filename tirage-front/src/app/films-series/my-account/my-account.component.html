@@ -1,0 +1,20 @@
+<div class="bloc">
+	@if (ongletToDisplay() === "my-account") {
+
+		<div class="titre">
+			<h5>Profil</h5>
+		</div>
+		<div class="titre">
+			<h5 (click)="changeOnglet('my-list')">Ma liste</h5>
+			<app-liste-titres-drag [titres]="myListLimited()"></app-liste-titres-drag>
+		</div>
+		<div class="titre">
+			<h5 (click)="changeOnglet('titres-noted')">Récemment notés</h5>
+			<app-liste-titres-drag [titres]="titresNotedLimited()"></app-liste-titres-drag>
+		</div>
+	} @else if (ongletToDisplay() === "my-list") {
+		<app-my-list></app-my-list>
+	} @else if (ongletToDisplay() === "titres-noted") {
+		<app-titre-noted></app-titre-noted>
+	}
+</div>

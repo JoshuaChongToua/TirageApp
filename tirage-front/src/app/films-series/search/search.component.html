@@ -9,16 +9,5 @@
                id="filter-text-box"
         >
     </div>
-    <div class="liste">
-        @for (event of titres(); track $index) {
-            <div class="card" drag-scroll-item (click)="openDetail(event)">
-                <div class="image-event">
-                    <img src="https://image.tmdb.org/t/p/w342{{event.poster_path}}" alt="{{event.title}}">
-                </div>
-                <div class="title">
-                    {{event.title}}
-                </div>
-            </div>
-        }
-    </div>
+    <app-liste-titres [titres]="titres()"></app-liste-titres>
 </div>

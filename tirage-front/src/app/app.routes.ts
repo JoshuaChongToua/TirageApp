@@ -6,6 +6,7 @@ import { AuthGuard } from './auth.guard';
 import {MainPageComponent} from "./films-series/main-page/main-page.component";
 import {FilmsSeriesComponent} from "./films-series/films-series.component";
 import {SearchComponent} from "./films-series/search/search.component";
+import {MyAccountComponent} from "./films-series/my-account/my-account.component";
 
 
 export const routes: Routes = [
@@ -15,6 +16,7 @@ export const routes: Routes = [
     { path: 'films-series', component: FilmsSeriesComponent },
     { path: 'main-page', component: MainPageComponent },
     { path: 'search', component: SearchComponent },
+    { path: 'my-account', component: MyAccountComponent },
     { path: '**', redirectTo: '' }
 ];
 

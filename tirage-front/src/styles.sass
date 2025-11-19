@@ -38,3 +38,76 @@ body
         cursor: default !important
 
 
+.bloc
+    background: black
+    padding: 20px 20px
+
+    &.spe
+        .drag-scroll-content
+            display: flex !important
+            gap: 20px
+
+
+.glass
+    display: inline-block
+    padding: 24px 32px
+    text-decoration: none
+    border-radius: 15px
+    background-color: rgba(255,255,255,0.1)
+    border: 1px solid rgba(255,255,255,0.1)
+    backdrop-filter: blur(30px)
+    color: rgba(255,255,255,0.8)
+    font-size: 14px
+    letter-spacing: 2px
+    cursor: pointer
+    text-transform: uppercase
+
+
+.glass:hover
+    background-color: rgba(255,255,255,0.2)
+
+
+.card
+    flex: 0 0 auto
+    width: 200px
+    display: flex!important
+    gap: 10px
+    background-color: black
+
+    .image-event
+        width: 100%
+        border-radius: 15px
+        overflow: hidden
+
+        img
+            width: 100%
+            height: 100%
+            object-fit: cover
+            border-radius: 15px
+            cursor: pointer
+
+    .title
+        text-align: center
+        color: rgba(255,255,255,0.9)
+        font-size: 1rem
+        padding: 0 5px
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis
+
+    .note
+        display: flex
+        justify-content: center
+        gap: 6px
+
+        span
+            color: rgba(255,255,255,0.75)
+
+
+.btn-glass
+    display: flex
+    gap: 10px
+    align-items: center
+
+
+

@@ -1,4 +1,4 @@
-<app-star-rating [context]="'add-avis-page'"></app-star-rating>
+<app-star-rating [context]="'add-avis-page'" [note]="hasVoted().note ?? ''"></app-star-rating>
 
 <div class="bloc">
     <div class="form" [formGroup]="noteAvisForm">
@@ -8,5 +8,5 @@
         </mat-form-field>
         <mat-slide-toggle formControlName="spoil">Spoil</mat-slide-toggle>
     </div>
-        <button [ngClass]="noteAvisForm.valid ? 'btn-main' : 'btn-main disabled'" [disabled]="!noteAvisForm.valid" (click)="addNoteAvis()">Valider</button>
+        <button [ngClass]="noteAvisForm.valid ? 'btn-main' : 'btn-main disabled'" [disabled]="!noteAvisForm.valid" (click)="hasVoted() ? editNoteAndAvis() : addNoteAvis()">Valider</button>
 </div>

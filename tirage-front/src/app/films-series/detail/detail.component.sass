@@ -1,23 +1,50 @@
 .bloc
-    display: flex
-    padding: 20px
-    gap: 20px
-    .left
+	display: flex
+	padding: 20px
+	gap: 20px
+	.left
 
-    .right
-        display: flex
-        flex-direction: column
+	.right
+		display: flex
+		flex-direction: column
 
-        .onglet
-            display: flex
-            gap: 20px
+		.onglet
+			display: flex
+			gap: 20px
 
-            .onglet-name
-                cursor: pointer
+			.onglet-name
+				cursor: pointer
 
-        .title
-            span
-                font-weight: bold
+		.info
+			.cta
+				.icon
+					width: 30px
+					height: 30px
+					cursor: pointer
+					transition: transform 0.3s ease, opacity 0.3s ease
 
-        .btn-main
-            align-self: flex-start
+					&.check, &.plus
+						transform: scale(0)
+						animation: pop 0.4s forwards
+
+
+			.title
+				span
+					font-weight: bold
+
+			.btn-main
+				align-self: flex-start
+
+
+@keyframes pop
+	0%
+		transform: scale(0)
+		opacity: 0
+
+	50%
+		transform: scale(1.2)
+		opacity: 1
+
+	100%
+		transform: scale(1)
+		opacity: 1

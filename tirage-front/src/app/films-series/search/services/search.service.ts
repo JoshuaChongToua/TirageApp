@@ -32,7 +32,6 @@ export class SearchService {
                 api_key: environment.apiKey2,
                 query: name,
                 language: 'fr-FR',
-                sort_by: 'popularity.desc'
             }
         });
 
@@ -41,7 +40,6 @@ export class SearchService {
                 api_key: environment.apiKey2,
                 query: name,
                 language: 'fr-FR',
-                sort_by: 'popularity.desc'
             }
         });
 
