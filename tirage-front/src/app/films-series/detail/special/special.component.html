@@ -1,0 +1,11 @@
+<div class="bloc spe">
+    @if (videosYoutube()) {
+        <drag-scroll [scrollbar-hidden]="true">
+            @for (video of videosYoutube(); track $index) {
+                <div class="trailer-container glass" drag-scroll-item>
+                    <iframe [src]="video" allowfullscreen></iframe>
+                </div>
+            }
+        </drag-scroll>
+    }
+</div>

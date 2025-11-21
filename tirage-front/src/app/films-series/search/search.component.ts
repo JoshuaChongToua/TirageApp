@@ -27,4 +27,8 @@ export class SearchComponent implements OnInit {
         })
     }
 
+    ngOnDestroy() {
+        this.titres.set(null)
+    }
+
 }

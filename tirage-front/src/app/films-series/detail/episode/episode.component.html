@@ -1,0 +1,28 @@
+<div class="bloc">
+    <mat-form-field>
+        <mat-label>Saison</mat-label>
+        <mat-select [formControl]="saisonSelectControl">
+            @for (titre of titreDetail.seasons; track $index) {
+                <mat-option [value]="titre.season_number">{{titre.season_number === 0 ? 'Spéciaux' : titre.season_number}}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
+    <div class="episodes">
+        @for (episode of episodesDetails(); track $index) {
+            <div class="episode glass">
+                <div class="image">
+                    <img src="https://image.tmdb.org/t/p/w300{{episode?.still_path}}" alt="{{episode?.episode_number}}">
+                </div>
+                <div class="info">
+                    <div class="title">
+                        Episode {{episode?.episode_number}}
+                    </div>
+                    <div class="overview">
+                        {{episode?.overview}}
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -16,12 +16,20 @@ export class DetailService {
 
     constructor(private http: HttpClient) { }
 
-    getDetailId(id: number) {
-        this.http.get("https://api.themoviedb.org/3/movie/" + id + "?api_key=" + environment.apiKey2 + "&language=fr-FR").subscribe({
+    getDetailId(titre: any) {
+        const type = titre.release_date ? 'movie' : 'tv'
+
+        this.http.get("https://api.themoviedb.org/3/" + type + "/" + titre.id + "?api_key=" + environment.apiKey2 + "&language=fr-FR").subscribe({
             next: (data: any) => {
                 this.event.set(data);
             }
         })
+    }
+
+    getDetailIdMainPage(titre: any) {
+        const type = titre.release_date ? 'movie' : 'tv'
+
+        return this.http.get("https://api.themoviedb.org/3/" + type + "/" + titre.id + "?api_key=" + environment.apiKey2 + "&language=fr-FR")
     }
 
     getNoteAverage(id: number) {

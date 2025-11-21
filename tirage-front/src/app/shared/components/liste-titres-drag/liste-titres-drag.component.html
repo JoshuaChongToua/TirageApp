@@ -3,10 +3,10 @@
         @for (event of titres; track $index) {
             <div class="card" drag-scroll-item (click)="openDetail(event)">
                 <div class="image-event">
-                    <img src="https://image.tmdb.org/t/p/w342{{event.poster_path}}" alt="{{event.title}}">
+                    <img src="https://image.tmdb.org/t/p/w342{{event.poster_path}}" alt="{{event.title ?? event.name}}">
                 </div>
                 <div class="title">
-                    {{event.title}}
+                    {{event.title ?? event.name}}
                 </div>
                 @if (notesAverage()) {
                     <div class="note">

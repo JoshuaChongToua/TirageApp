@@ -13,6 +13,8 @@ export class MainPageService {
     moviesGenre : WritableSignal<any> = signal(null)
     moviestrending : WritableSignal<any> = signal(null)
     notesAverage : WritableSignal<any> = signal(null)
+    selectedType : WritableSignal<any> = signal(null)
+    seriesTopRated : WritableSignal<any> = signal(null)
 
 
     getMovieFromthisGenre(idGenre: number): any {
@@ -38,26 +40,39 @@ export class MainPageService {
         })
     }
 
+    getSeriesTopRated(): any {
+        this.http.get("https://api.themoviedb.org/3/tv/top_rated", {
+            params: {
+                api_key: environment.apiKey2,
+                language: 'fr-FR',
+                sort_by: 'release_date.desc',
+                page: 1,
+            },
+        }).subscribe({
+            next: (data: any) => {
+                this.seriesTopRated.set(data.results);
+            }
+        })
+    }
+
     getLatestTitles() {
         const movies$ = this.http.get(
-            `https://api.themoviedb.org/3/discover/movie`,
+            `https://api.themoviedb.org/3/movie/now_playing`,
             {
                 params: {
                     api_key: environment.apiKey2,
                     language: 'fr-FR',
-                    sort_by: 'release_date.desc',
                     page: 1,
                 },
             }
         );
 
         const series$ = this.http.get(
-            `https://api.themoviedb.org/3/discover/tv`,
+            `https://api.themoviedb.org/3/tv/on_the_air`,
             {
                 params: {
                     api_key: environment.apiKey2,
                     language: 'fr-FR',
-                    sort_by: 'first_air_date.desc',
                     page: 1,
                 },
             }

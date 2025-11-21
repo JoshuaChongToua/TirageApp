@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, signal, WritableSignal} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoginService } from '../login/services/login.service';
+import {MainPageService} from "../films-series/main-page/services/main-page.service";
 
 @Component({
     selector: 'app-navbar',
@@ -18,8 +19,12 @@ export class NavbarComponent {
     userName !: string
     email !: any
     isLoggedIn: boolean = false
-    constructor(private loginService: LoginService, private router: Router) {
+
+    // selectedType!: WritableSignal<any>
+
+    constructor(private loginService: LoginService, private router: Router, private mainPageService: MainPageService) {
         this.currentUser = this.loginService.userConnected$
+        // this.selectedType = this.mainPageService.selectedType
     }
 
     ngOnInit(): void {
@@ -33,8 +38,14 @@ export class NavbarComponent {
                 this.userName = u.name
             }
         })
-
     }
+
+    // selectType(type: string) {
+    //     if (type != this.selectedType()) {
+    //         this.selectedType.set(type)
+    //     }
+    // }
+
 
     logout() {
         this.loginService.logout()

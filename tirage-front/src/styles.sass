@@ -6,8 +6,7 @@ html, body
 body
     margin: 0
     font-family: Roboto, "Helvetica Neue", sans-serif
-
-
+    background: black
 
 
 .mat-mdc-dialog-surface
@@ -49,8 +48,9 @@ body
 
 
 .glass
-    display: inline-block
-    padding: 24px 32px
+    display: flex
+    gap: 10px
+    padding: 12px 32px
     text-decoration: none
     border-radius: 15px
     background-color: rgba(255,255,255,0.1)
@@ -60,7 +60,6 @@ body
     font-size: 14px
     letter-spacing: 2px
     cursor: pointer
-    text-transform: uppercase
 
 
 .glass:hover
@@ -109,5 +108,18 @@ body
     gap: 10px
     align-items: center
 
+
+.mat-mdc-dialog-surface
+    overflow-y: auto!important
+
+.mat-mdc-dialog-surface::-webkit-scrollbar
+    width: 0 !important
+    height: 0 !important
+
+.ag-body-viewport
+    scrollbar-width: none!important
+
+.ag-body-vertical-scroll-viewport::-webkit-scrollbar
+    display: none!important
 
 

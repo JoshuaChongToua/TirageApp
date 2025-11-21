@@ -37,9 +37,13 @@
                 <span> Thriller</span>
             </div>
         </div>
+        @if (seriesTopRated()) {
+            <app-liste-titres-drag [titres]="seriesTopRated()"></app-liste-titres-drag>
+        }
         @if (moviestrending()) {
             <app-liste-titres-drag [titres]="moviestrending()"></app-liste-titres-drag>
         }
+
 
     } @else if (ongletToDisplay() === "categorie") {
         <button class="btn-glass glass" (click)="selectOnglet('main')">

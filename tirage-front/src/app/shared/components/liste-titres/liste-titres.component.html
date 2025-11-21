@@ -5,7 +5,7 @@
                 <img src="https://image.tmdb.org/t/p/w342{{event.poster_path}}" alt="{{event.title}}">
             </div>
             <div class="title">
-                {{event.title}}
+                {{event.title ?? event.name}}
             </div>
             @if (notesAverage()) {
                 <div class="note">

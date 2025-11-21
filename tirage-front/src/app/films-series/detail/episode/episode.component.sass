@@ -1,0 +1,22 @@
+.bloc
+    .episodes
+        display: flex
+        gap: 10px
+        flex-direction: column
+
+        .episode
+            display: flex
+            gap: 20px
+            .image
+                img
+                    width: 150px
+                    height: 85px
+
+            .info
+                .title
+                    text-decoration: underline
+                .overview
+                    overflow: hidden
+                    display: -webkit-box
+                    -webkit-line-clamp: 3
+                    -webkit-box-orient: vertical

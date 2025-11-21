@@ -1,4 +1,4 @@
-import {Component, effect, Input, OnInit, WritableSignal} from '@angular/core';
+import {Component, effect, Input, OnInit, ViewEncapsulation, WritableSignal} from '@angular/core';
 import {AvisService} from "./services/avis.service";
 import {ColDef, GridApi, GridOptions, GridReadyEvent, IsFullWidthRowParams} from "ag-grid-community";
 import {AgGridAngular} from "ag-grid-angular";
@@ -11,7 +11,8 @@ import {CardNoteAvisComponent} from "./card-note-avis/card-note-avis.component";
         AgGridAngular
     ],
   templateUrl: './avis.component.html',
-  styleUrl: './avis.component.sass'
+  styleUrl: './avis.component.sass',
+    encapsulation: ViewEncapsulation.None
 })
 export class AvisComponent implements OnInit {
 
@@ -35,7 +36,7 @@ export class AvisComponent implements OnInit {
     gridNotesAvis!: GridApi<any>;
     fullWidthCellRenderer: any = CardNoteAvisComponent
     rowData: any[] = [];
-    rowHeightCustom = 210
+    rowHeightCustom = 150
 
     gridOptions: GridOptions = {
         autoSizeStrategy: {
