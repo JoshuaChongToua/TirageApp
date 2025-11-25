@@ -98,9 +98,7 @@ class NoteController extends AbstractController
                 $note->setType($data['type']);
                 $note->setUser($this->getUser());
                 $note->setCreatedAt(new \DateTimeImmutable());
-                if ($data['avis']) {
-                    $note->setAvis($data['avis']);
-                }
+                $note->setAvis($data['avis'] ?? null);
                 $this->entityManager->persist($note);
                 $this->entityManager->flush();
                 return $this->json($note, 200, [], ['groups' => ['note']]);
