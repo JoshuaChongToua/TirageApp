@@ -17,6 +17,7 @@ import {DetailService} from "../../../films-series/detail/services/detail.servic
 export class ListeTitresDragComponent {
 
 	@Input() titres: any;
+	@Input() title: any;
 
     notesAverage!: WritableSignal<any>;
 
@@ -38,7 +39,8 @@ export class ListeTitresDragComponent {
                     maxWidth: '95vw',
                     maxHeight: '95vh',
                     height: 'auto',
-                    data: { event: event }
+                    data: { event: event },
+                    autoFocus: false
                 });
             }
         })

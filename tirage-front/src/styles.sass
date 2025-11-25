@@ -55,12 +55,25 @@ body
     border-radius: 15px
     background-color: rgba(255,255,255,0.1)
     border: 1px solid rgba(255,255,255,0.1)
-    backdrop-filter: blur(30px)
     color: rgba(255,255,255,0.8)
     font-size: 14px
     letter-spacing: 2px
     cursor: pointer
 
+    &.transparent
+        background-color: transparent
+        border: transparent
+
+    &.disabled
+        background-color: rgba(255,255,255,0.0)
+        cursor: initial
+
+        &:hover
+            background-color: rgba(255,255,255,0.0)
+
+    &.no-hover:hover
+        background-color: rgba(255,255,255,0.1)
+        cursor: default
 
 .glass:hover
     background-color: rgba(255,255,255,0.2)

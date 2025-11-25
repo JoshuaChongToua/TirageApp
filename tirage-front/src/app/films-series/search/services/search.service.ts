@@ -2,50 +2,54 @@ import {Injectable, signal, WritableSignal} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../../environment/environment.development";
 import {forkJoin} from "rxjs";
+import {MainPageService} from "../../main-page/services/main-page.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
 
-    constructor(private http: HttpClient) {
+
+    constructor(private http: HttpClient, private mainPageService: MainPageService) {
+        this.selectedType = this.mainPageService.selectedType
     }
 
     titres: WritableSignal<any> = signal(null)
+    selectedType!: WritableSignal<any>
 
-    // (name: string): any {
-    //     this.http.get("https://api.themoviedb.org/3/search/movie?api_key=" + environment.apiKey2 + "&query=" + name + "&language=fr-FR&sort_by=popularity.desc").subscribe({
-    //         next: (data: any) => {
-    //             this.titres.set(data.results);
-    //         }
-    //     })
-    //     this.http.get("https://api.themoviedb.org/3/search/tv?api_key=" + environment.apiKey2 + "&query=" + name + "&language=fr-FR&sort_by=popularity.desc").subscribe({
-    //         next: (data: any) => {
-    //             this.titres.set(data.results);
-    //         }
-    //     })
-    // }}
+    titresLoader: WritableSignal<any> = signal(false)
 
-    getMovieAndSeriesByName(name: string) {
-        const movie$ = this.http.get(`https://api.themoviedb.org/3/search/movie`, {
+    getMoviesByName(name: string) {
+        this.titresLoader.set(true)
+        this.http.get(`https://api.themoviedb.org/3/search/movie`, {
             params: {
                 api_key: environment.apiKey2,
                 query: name,
                 language: 'fr-FR',
             }
+        })
+        .subscribe({
+            next: (data: any) => {
+                this.titres.set(data.results);
+                this.titresLoader.set(false)
+            }
         });
+    }
 
-        const tv$ = this.http.get(`https://api.themoviedb.org/3/search/tv`, {
+    getSeriesByName(name: string) {
+        this.titresLoader.set(true)
+        this.http.get(`https://api.themoviedb.org/3/search/tv`, {
             params: {
                 api_key: environment.apiKey2,
                 query: name,
                 language: 'fr-FR',
             }
-        });
-
-        forkJoin([movie$, tv$]).subscribe(([movies, tvs]: any) => {
-            const results = [...movies.results, ...tvs.results];
-            this.titres.set(results);
+        })
+        .subscribe({
+            next: (data: any) => {
+                this.titres.set(data.results);
+                this.titresLoader.set(false)
+            }
         });
     }
 }

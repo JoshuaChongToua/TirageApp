@@ -2,10 +2,10 @@
     <div class="title"><span>Type :</span> {{titre?.release_date ? 'Film' : 'Série'}}</div>
     <div class="title"><span>Statut :</span> {{titre?.status ?? titreDetail?.status}}</div>
     <div class="title"><span>Date de sortie :</span> {{titre?.release_date ?? titreDetail?.release_date ?? titre?.first_air_date ?? titreDetail?.first_air_date}}</div>
+    @if (titreDetail?.last_air_date) {
+        <div class="title"><span>Dernier épisode sorti le :</span> {{titreDetail?.last_air_date}}</div>
+    }
     <div class="title"><span>Origine :</span> {{titre?.origin_country ?? titreDetail?.origin_country}}</div>
     <div class="title"><span>Genres :</span> {{getGenres()}}</div>
     <app-star-rating [note]="noteAverage()" [context]="'detail-page'"></app-star-rating>
-
-    <button class="glass" (click)="addNoteAndAvis(titre)">{{hasVoted() ? 'Modifier votre avis' : 'Ajouter un avis'}}</button>
-
 </div>

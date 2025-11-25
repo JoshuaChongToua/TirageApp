@@ -29,8 +29,8 @@ export class LoginService {
 
     public userInfo: any;
 
-    sendCredentials(credentials: any) {
-        const infosLog = { email: credentials.email, password: credentials.password }
+    sendCredentials(email: any, password: any) {
+        const infosLog = { email: email, password: password }
         const headers = { 'Content-type': 'application/json' }
 
         this.http.post(environment.apiURL + '/api/login_check', infosLog, { headers }).subscribe({
@@ -59,7 +59,7 @@ export class LoginService {
         sessionStorage.removeItem('token-auth');
         this._isLogged$.next(false)
         this._userConnected$.next(null)
-        //this.router.navigateByUrl('/login')
+        this.router.navigateByUrl('/login')
     }
 
     login(token: string) {

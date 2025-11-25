@@ -5,5 +5,9 @@
                id="filter-text-box"
         >
     </div>
-    <app-liste-titres [titres]="titres()"></app-liste-titres>
+    @if (!titresLoader()){
+        <app-liste-titres [titres]="titres()"></app-liste-titres>
+    } @else {
+        <app-loader-movie></app-loader-movie>
+    }
 </div>

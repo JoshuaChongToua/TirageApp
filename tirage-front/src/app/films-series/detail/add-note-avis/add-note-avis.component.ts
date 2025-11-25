@@ -54,9 +54,9 @@ export class AddNoteAvisComponent implements OnInit {
     addNoteAvis() {
         this.addNoteAvisService.addNoteAvis().subscribe({
             next: (res: any)=> {
+                this.detailService.reloadHasVoted.set(true)
                 this.closeModal()
                 this.toolService.openSnackBar('success', 'Merci de votre ajout');
-                this.detailService.reloadHasVoted.set(true)
             },
             error: err => {
                 this.toolService.openSnackBar('error', 'Erreur lors de l\'ajout de votre ajout');

@@ -1,12 +1,75 @@
-<form [formGroup]="loginForm">
-  <div>
-    <label for="email">Email</label>
-    <input id="email" formControlName="email" required>
-  </div>
-  <div>
-    <label for="password">Mot de passe</label>
-    <input id="password" type="password" formControlName="password" required>
-  </div>
-  <button type="submit" [disabled]="loginForm.invalid" (click)="sendLoginForm()">Se connecter</button>
-  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
-</form>
+<div class="bloc">
+    <div class="form glass no-hover">
+        <div class="left">
+            @if (choice() === 'inscription') {
+                <button class="glass" (click)="changeChoice('connexion')">Se Connecter</button>
+            }
+            @if (choice() === 'connexion') {
+                <h5>Connexion</h5>
+                <form>
+                    <div class="line">
+                        <mat-form-field>
+                            <input matInput placeholder="Email" [formControl]="email" required>
+                        </mat-form-field>
+                    </div>
+                    <div class="line">
+                        <mat-form-field>
+                            <input type="password" matInput placeholder="Mot de passse" [formControl]="password" required>
+                        </mat-form-field>
+                    </div>
+                    <button class="glass" type="button" [disabled]="email.invalid && password.invalid" (click)="sendLoginForm()">Se connecter</button>
+                    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+                </form>
+            }
+        </div>
+        <div class="right">
+            @if (choice() === 'connexion') {
+                <button class="glass" (click)="changeChoice('inscription')">S'inscrire</button>
+            }
+            @if (choice() === 'inscription') {
+                <h5>Inscription</h5>
+                <mat-horizontal-stepper [linear]="true" #stepper [animationDuration]="'800'">
+                    <mat-step [stepControl]="email">
+                        <form>
+                            <ng-template matStepLabel>Email</ng-template>
+                            <div class="line">
+                                <mat-form-field>
+                                    <input matInput placeholder="Email" [formControl]="email" required>
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <button type="button" [ngClass]="!email?.value ? 'disabled' : ''" [disabled]="!email?.value" class="glass" matButton matStepperNext>
+                                    Next
+                                </button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="password">
+                        <form>
+                            <ng-template matStepLabel>Mot de passe</ng-template>
+                            <div class="line">
+                                <mat-form-field>
+                                    <input matInput placeholder="Mot de passse" [formControl]="password" required>
+                                </mat-form-field>
+                            </div>
+                            <div class="line">
+                                <mat-form-field>
+                                    <input matInput placeholder="Confirmez votre mot de passse" [formControl]="passwordControl" required>
+                                </mat-form-field>
+                            </div>
+                            <div class="btn-step">
+                                <button type="button" class="glass" matButton matStepperPrevious>Back</button>
+                                <button type="button" class="glass" [ngClass]="password?.value !== passwordControl.value ? 'disabled' : ''" [disabled]="password?.value !== passwordControl.value" matButton>
+                                    S'inscrire
+                                </button>
+                            </div>
+                        </form>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            }
+        </div>
+
+    </div>
+
+</div>
+

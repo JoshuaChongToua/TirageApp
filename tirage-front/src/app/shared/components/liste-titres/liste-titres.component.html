@@ -2,7 +2,7 @@
     @for (event of titres; track $index) {
         <div class="card" (click)="openDetail(event)">
             <div class="image-event">
-                <img src="https://image.tmdb.org/t/p/w342{{event.poster_path}}" alt="{{event.title}}">
+                <img src="{{event.poster_path ? 'https://image.tmdb.org/t/p/w342' + event.poster_path : '/shared/img/no-image.png' }}" alt="{{event.title ?? event.name}}">
             </div>
             <div class="title">
                 {{event.title ?? event.name}}

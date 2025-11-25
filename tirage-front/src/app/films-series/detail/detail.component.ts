@@ -5,11 +5,12 @@ import {MatDialog} from "@angular/material/dialog";
 import {AddNoteAvisComponent} from "./add-note-avis/add-note-avis.component";
 import {AvisComponent} from "./avis/avis.component";
 import {StarRatingComponent} from "../../shared/star-rating/star-rating.component";
-import {NgIf} from "@angular/common";
+import {NgClass, NgIf} from "@angular/common";
 import {DomSanitizer} from "@angular/platform-browser";
 import {InformationComponent} from "./information/information.component";
 import {EpisodeComponent} from "./episode/episode.component";
 import {SpecialComponent} from "./special/special.component";
+import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
   selector: 'app-detail',
@@ -19,6 +20,8 @@ import {SpecialComponent} from "./special/special.component";
         InformationComponent,
         EpisodeComponent,
         SpecialComponent,
+        MatTooltip,
+        NgClass,
     ],
   templateUrl: './detail.component.html',
   styleUrl: './detail.component.sass'
@@ -31,11 +34,19 @@ export class DetailComponent implements OnInit {
     noteAverage!: WritableSignal<any>
     ongletToDisplay: WritableSignal<any> = signal('info')
 	addedToList!: WritableSignal<any>
+    hasVoted!: WritableSignal<any>
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog, private detailService: DetailService) {
         this.eventDetail = this.detailService.event
         this.noteAverage = this.detailService.noteAverage
         this.addedToList = this.detailService.addedToList
+        this.hasVoted = this.detailService.hasVoted
+        effect(() => {
+            if (this.detailService.reloadHasVoted()) {
+                this.detailService.getHasVoted(this.event.id)
+                this.detailService.reloadHasVoted.set(false)
+            }
+        }, {allowSignalWrites: true});
     }
 
     ngOnInit(): void {
@@ -64,5 +75,17 @@ export class DetailComponent implements OnInit {
 	removeFromList(titre: any) {
 		this.detailService.removeFromList(titre.id)
 	}
+
+    addNoteAndAvis(titre: any) {
+        this.dialog.open(AddNoteAvisComponent, {
+            width: '750px',
+            maxHeight: '95vh',
+            height: '400px',
+            data: {
+                titre: titre,
+                hasVoted: this.hasVoted,
+            }
+        });
+    }
 
 }

@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import {inject, Injectable} from '@angular/core';
+import {CanActivate, CanActivateFn, Router} from '@angular/router';
 import { LoginService } from './login/services/login.service';
 
 @Injectable({
@@ -7,6 +7,8 @@ import { LoginService } from './login/services/login.service';
 })
 export class AuthGuard implements CanActivate {
     constructor(private loginService: LoginService, private router: Router) { }
+
+
 
     canActivate(): boolean {
         if (this.loginService.isLoggedIn()) {
@@ -16,4 +18,20 @@ export class AuthGuard implements CanActivate {
             return false;
         }
     }
+}
+
+export function isLogged(): CanActivateFn {
+    return () => {
+        const oauthService: LoginService = inject(LoginService);
+        const router: Router = inject(Router);
+        if (oauthService.isTokenExpire()) {
+
+            router.navigate(['/login']);
+            oauthService._isLogged$.next(false)
+            return false;
+        }
+        oauthService._isLogged$.next(true)
+        return true;
+    }
+
 }

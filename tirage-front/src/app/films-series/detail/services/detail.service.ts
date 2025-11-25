@@ -10,7 +10,7 @@ export class DetailService {
     event : WritableSignal<any> = signal(null)
     noteAverage: WritableSignal<any> = signal(null)
     hasVoted: WritableSignal<any> = signal(null)
-    reloadHasVoted: WritableSignal<any> = signal(null)
+    reloadHasVoted: WritableSignal<any> = signal(false)
     images: WritableSignal<any> = signal(null)
 	addedToList: WritableSignal<any> = signal(false)
 

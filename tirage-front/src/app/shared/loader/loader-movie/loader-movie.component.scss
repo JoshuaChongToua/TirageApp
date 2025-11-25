@@ -1,0 +1,25 @@
+#camera-body,
+#reel-1,
+#reel-2 {
+    fill: #fff;
+    fill-opacity: 0.95;
+    stroke: none;
+}
+
+.wrapper {
+    height: 73vh;
+    background: black;
+    color: rgba(255,255,255,0.95);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+span {
+    font-family: 'Open Sans', arial, sans-serif;
+    font-size: 1.2em;
+    font-weight: 300;
+    line-height: 2em;
+    color: #fff;
+}

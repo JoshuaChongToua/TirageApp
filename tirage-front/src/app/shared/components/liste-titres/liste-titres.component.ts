@@ -40,7 +40,8 @@ export class ListeTitresComponent {
                     maxWidth: '95vw',
                     maxHeight: '95vh',
                     height: 'auto',
-                    data: { event: event }
+                    data: { event: event },
+                    autoFocus: false
                 });
             }
         })
