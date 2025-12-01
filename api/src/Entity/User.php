@@ -17,10 +17,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['get_notes_avis'])]
+    #[Groups(['get_notes_avis', 'demande', 'info_user', 'getAmis'])]
     private ?int $id = null;
 
-    #[Groups(['get_notes_avis'])]
+    #[Groups(['get_notes_avis', 'demande', 'info_user', 'getAmis'])]
     #[ORM\Column(length: 180)]
     private ?string $name = null;
 
@@ -30,7 +30,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[Groups(['info_user', 'user_view'])]
+    #[Groups(['info_user', 'user_view', 'getAmis'])]
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
@@ -50,11 +50,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Liste::class, mappedBy: 'user')]
     private Collection $listes;
 
+    /**
+     * @var Collection<int, Demande>
+     */
+    #[ORM\OneToMany(targetEntity: Demande::class, mappedBy: 'demandeur')]
+    private Collection $demandes;
+
+    /**
+     * @var Collection<int, Ami>
+     */
+    #[ORM\OneToMany(targetEntity: Ami::class, mappedBy: 'user1')]
+    private Collection $amis;
+
+    /**
+     * @var Collection<int, Conversation>
+     */
+    #[ORM\OneToMany(targetEntity: Conversation::class, mappedBy: 'user1')]
+    private Collection $conversations;
+
 
     public function __construct()
     {
         $this->notes = new ArrayCollection();
         $this->listes = new ArrayCollection();
+        $this->demandes = new ArrayCollection();
+        $this->amis = new ArrayCollection();
+        $this->conversations = new ArrayCollection();
     }
 
 
@@ -194,6 +215,96 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($liste->getUser() === $this) {
                 $liste->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Demande>
+     */
+    public function getDemandes(): Collection
+    {
+        return $this->demandes;
+    }
+
+    public function addDemande(Demande $demande): static
+    {
+        if (!$this->demandes->contains($demande)) {
+            $this->demandes->add($demande);
+            $demande->setDemandeur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDemande(Demande $demande): static
+    {
+        if ($this->demandes->removeElement($demande)) {
+            // set the owning side to null (unless already changed)
+            if ($demande->getDemandeur() === $this) {
+                $demande->setDemandeur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ami>
+     */
+    public function getAmis(): Collection
+    {
+        return $this->amis;
+    }
+
+    public function addAmi(Ami $ami): static
+    {
+        if (!$this->amis->contains($ami)) {
+            $this->amis->add($ami);
+            $ami->setUser1($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAmi(Ami $ami): static
+    {
+        if ($this->amis->removeElement($ami)) {
+            // set the owning side to null (unless already changed)
+            if ($ami->getUser1() === $this) {
+                $ami->setUser1(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Conversation>
+     */
+    public function getConversations(): Collection
+    {
+        return $this->conversations;
+    }
+
+    public function addConversation(Conversation $conversation): static
+    {
+        if (!$this->conversations->contains($conversation)) {
+            $this->conversations->add($conversation);
+            $conversation->setUser1($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversation(Conversation $conversation): static
+    {
+        if ($this->conversations->removeElement($conversation)) {
+            // set the owning side to null (unless already changed)
+            if ($conversation->getUser1() === $this) {
+                $conversation->setUser1(null);
             }
         }
 

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserRoleType;
 use App\Form\UserType;
+use App\Repository\AmiRepository;
 use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -20,12 +21,55 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class UserController extends AbstractController
 {
 
+    public function __construct(private UserRepository $userRepository)
+    {
+
+    }
+
     #[Route('/api/userConnected', name: 'app_user_connected')]
     public function userConnected(): Response
     {
         return $this->json($this->getUser(), 200, [], ['groups' => 'info_user']);
     }
 
+
+    #[Route('/api/getUsers', name: 'get_users')]
+    public function getUsers(Request $request, AmiRepository $amiRepository): Response
+    {
+        $data = json_decode($request->getContent(), true);
+        $users = $this->userRepository->findUserByName($data['name']);
+        $mesDemandes = $this->getUser()->getDemandes();
+        $amis = $amiRepository->findAmis($this->getUser());
+        $listUsers = [];
+        foreach ($users as $user) {
+            $demande = false;
+            $isAmi = false;
+            if ($this->getUser() === $user) {
+                continue;
+            }
+            if ($amis) {
+                foreach ($amis as $ami) {
+                    if ($ami->getUser1() === $user || $ami->getUser2() === $user) {
+                        $isAmi = true;
+                    }
+                }
+            }
+            foreach ($mesDemandes as $maDemande) {
+                if ($maDemande->getReceveur()->getId() === $user->getId()) {
+                    $demande = true;
+                    break;
+                }
+            }
+            $listUsers[] = [
+                'id' => $user->getId(),
+                'name' => $user->getName(),
+                'email' => $user->getEmail(),
+                'demande' => $demande,
+                'ami' => $isAmi
+            ];
+        }
+        return $this->json($listUsers, 200);
+    }
 
     #[Route('/user', name: 'app_user')]
     #[IsGranted('ROLE_USER')]
