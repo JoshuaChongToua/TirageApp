@@ -35,7 +35,7 @@ export class MainPageComponent implements OnInit {
 
     //Series
     seriesTopRated!: WritableSignal<any>
-	lastTitles!: WritableSignal<any>
+    lastTitles!: WritableSignal<any>
     seriestrending!: WritableSignal<any>
     seriesPopular!: WritableSignal<any>
 

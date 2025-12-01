@@ -1,0 +1,20 @@
+<div class="bloc">
+    <div class="type glass no-hover">
+        <div class="glass transparent" (click)="selectType('demande')" [ngClass]="selectedType() === 'demande' ? 'selected' : ''">Demande</div>
+        <div class="glass transparent" (click)="selectType('amis')" [ngClass]="selectedType() === 'amis' ? 'selected' : ''">Amis</div>
+        <div class="glass transparent" (click)="selectType('conversation')" [ngClass]="selectedType() === 'conversation' ? 'selected' : ''">Conversation</div>
+        <div class="glass transparent" (click)="selectType('search')" [ngClass]="selectedType() === 'search' ? 'selected' : ''">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15"  viewBox="0 0 20 20"><path fill="#fff" d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33l-1.42 1.42l-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"/></svg>
+        </div>
+        <button class="glass" (click)="fakeDemande()">fake</button>
+    </div>
+    @if (selectedType() === 'search') {
+        <app-search></app-search>
+    }
+    @if (selectedType() === 'demande') {
+        <app-demande></app-demande>
+    }
+    @if (selectedType() === 'amis') {
+        <app-liste-amis></app-liste-amis>
+    }
+</div>

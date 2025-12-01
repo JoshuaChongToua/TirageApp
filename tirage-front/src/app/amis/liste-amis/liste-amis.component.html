@@ -1,0 +1,13 @@
+<div class="bloc">
+    @if (amis()) {
+        <div class="demandes">
+            @for (amiDetail of amis(); track $index) {
+                <div class="glass no-hover">
+                    <div class="name">
+                        <span>{{amiDetail.ami.name}}</span>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
