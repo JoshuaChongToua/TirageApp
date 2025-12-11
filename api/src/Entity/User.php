@@ -17,10 +17,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['get_notes_avis', 'demande', 'info_user', 'getAmis'])]
+    #[Groups(['get_notes_avis', 'demande', 'info_user', 'getAmis', 'conversation'])]
     private ?int $id = null;
 
-    #[Groups(['get_notes_avis', 'demande', 'info_user', 'getAmis'])]
+    #[Groups(['get_notes_avis', 'demande', 'info_user', 'getAmis', 'conversation'])]
     #[ORM\Column(length: 180)]
     private ?string $name = null;
 
@@ -68,6 +68,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Conversation::class, mappedBy: 'user1')]
     private Collection $conversations;
 
+    /**
+     * @var Collection<int, ConversationUser>
+     */
+    #[ORM\OneToMany(targetEntity: ConversationUser::class, mappedBy: 'user')]
+    private Collection $conversationUsers;
+
+    /**
+     * @var Collection<int, Message>
+     */
+    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'user')]
+    private Collection $messages;
+
+    /**
+     * @var Collection<int, Conversation>
+     */
+    #[ORM\OneToMany(targetEntity: Conversation::class, mappedBy: 'createur')]
+    private Collection $conversation_createur;
+
 
     public function __construct()
     {
@@ -76,6 +94,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->demandes = new ArrayCollection();
         $this->amis = new ArrayCollection();
         $this->conversations = new ArrayCollection();
+        $this->conversationUsers = new ArrayCollection();
+        $this->messages = new ArrayCollection();
+        $this->conversation_createur = new ArrayCollection();
     }
 
 
@@ -305,6 +326,96 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($conversation->getUser1() === $this) {
                 $conversation->setUser1(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ConversationUser>
+     */
+    public function getConversationUsers(): Collection
+    {
+        return $this->conversationUsers;
+    }
+
+    public function addConversationUser(ConversationUser $conversationUser): static
+    {
+        if (!$this->conversationUsers->contains($conversationUser)) {
+            $this->conversationUsers->add($conversationUser);
+            $conversationUser->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversationUser(ConversationUser $conversationUser): static
+    {
+        if ($this->conversationUsers->removeElement($conversationUser)) {
+            // set the owning side to null (unless already changed)
+            if ($conversationUser->getUser() === $this) {
+                $conversationUser->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): static
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages->add($message);
+            $message->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): static
+    {
+        if ($this->messages->removeElement($message)) {
+            // set the owning side to null (unless already changed)
+            if ($message->getUser() === $this) {
+                $message->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Conversation>
+     */
+    public function getConversationCreateur(): Collection
+    {
+        return $this->conversation_createur;
+    }
+
+    public function addConversationCreateur(Conversation $conversationCreateur): static
+    {
+        if (!$this->conversation_createur->contains($conversationCreateur)) {
+            $this->conversation_createur->add($conversationCreateur);
+            $conversationCreateur->setCreateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversationCreateur(Conversation $conversationCreateur): static
+    {
+        if ($this->conversation_createur->removeElement($conversationCreateur)) {
+            // set the owning side to null (unless already changed)
+            if ($conversationCreateur->getCreateur() === $this) {
+                $conversationCreateur->setCreateur(null);
             }
         }
 
