@@ -6,6 +6,7 @@ import {NgClass} from "@angular/common";
 import {SearchService} from "./search/services/search.service";
 import {DemandeComponent} from "./demande/demande.component";
 import {ListeAmisComponent} from "./liste-amis/liste-amis.component";
+import {ConversationComponent} from "./conversation/conversation.component";
 
 @Component({
   selector: 'app-amis',
@@ -15,7 +16,8 @@ import {ListeAmisComponent} from "./liste-amis/liste-amis.component";
         SearchComponent,
         NgClass,
         DemandeComponent,
-        ListeAmisComponent
+        ListeAmisComponent,
+        ConversationComponent
     ],
   templateUrl: './amis.component.html',
   styleUrl: './amis.component.sass'

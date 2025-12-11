@@ -11,6 +11,7 @@ import {InformationComponent} from "./information/information.component";
 import {EpisodeComponent} from "./episode/episode.component";
 import {SpecialComponent} from "./special/special.component";
 import {MatTooltip} from "@angular/material/tooltip";
+import {ConversationComponent} from "./conversation/conversation.component";
 
 @Component({
   selector: 'app-detail',
@@ -84,6 +85,17 @@ export class DetailComponent implements OnInit {
             data: {
                 titre: titre,
                 hasVoted: this.hasVoted,
+            }
+        });
+    }
+
+    sendToConversation(titre: any) {
+        this.dialog.open(ConversationComponent, {
+            width: '750px',
+            maxHeight: '95vh',
+            height: '400px',
+            data: {
+                titre: titre,
             }
         });
     }

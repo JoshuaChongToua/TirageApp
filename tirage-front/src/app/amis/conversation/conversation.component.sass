@@ -1,0 +1,31 @@
+.bloc
+    .demandes
+        .glass
+            display: flex
+            width: 500px
+            flex-direction: column
+            .conversation-name
+                span
+                    align-self: center
+                    font-weight: bold
+                    font-size: 20px
+
+            .lastMessage
+                display: flex
+                gap: 20px
+                justify-content: space-between
+
+                .name
+                    display: flex
+                    max-width: calc(100% - 100px)
+                    .msg
+                        white-space: nowrap
+                        overflow: hidden
+                        text-overflow: ellipsis
+
+
+            .icon
+                display: flex
+                gap: 10px
+                svg
+                    width: 20px

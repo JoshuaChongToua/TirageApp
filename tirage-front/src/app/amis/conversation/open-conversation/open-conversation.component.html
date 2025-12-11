@@ -1,0 +1,26 @@
+<div class="bloc">
+    <button class="btn-glass glass" (click)="changeView()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="17" viewBox="0 0 20 20"><path fill="#fff" d="m3.828 9l6.071-6.071l-1.414-1.414L0 10l.707.707l7.778 7.778l1.414-1.414L3.828 11H20V9H3.828z"/></svg>
+        <span>Retour</span>
+    </button>
+    <div class="conversation glass no-hover" >
+        <div class="messages-container" #conversationContainer>
+            @for (message of conversation.messages; track $index) {
+
+                <div class="message glass no-hover" [ngClass]="message.user.id === userConnected.id ? 'right' : 'left'">
+                    @if (message.titre_id) {
+                        <img (click)="openDetail(getTitreById(message.titre_id))" src="{{'https://image.tmdb.org/t/p/w342' + getTitreById(message.titre_id)?.poster_path }}" alt="{{getTitreById(message.titre_id)?.title ?? getTitreById(message.titre_id)?.name}}">
+                    }
+                    {{message.message}}
+                </div>
+            }
+        </div>
+        <div class="write">
+            <textarea (keydown.enter)="onEnter($event)" [formControl]="messageToSend" placeholder="Message..."></textarea>
+            <button class="btn-glass glass"
+                    [ngClass]="!messageToSend.valid ? 'disabled' : ''"
+                    [disabled]="!messageToSend.valid ? 'disabled' : ''"
+                    (click)="createMessage()">Envoyer</button>
+        </div>
+    </div>
+</div>
