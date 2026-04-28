@@ -6,7 +6,6 @@ import {AddNoteAvisService} from "../../films-series/detail/add-note-avis/servic
 @Component({
     selector: 'app-star-rating',
     templateUrl: './star-rating.component.html',
-    standalone: true,
     imports: [
         NgClass,
         MatIcon

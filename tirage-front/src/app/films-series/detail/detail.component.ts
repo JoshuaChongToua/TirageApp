@@ -5,7 +5,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {AddNoteAvisComponent} from "./add-note-avis/add-note-avis.component";
 import {AvisComponent} from "./avis/avis.component";
 import {StarRatingComponent} from "../../shared/star-rating/star-rating.component";
-import {NgClass, NgIf} from "@angular/common";
+import { NgClass } from "@angular/common";
 import {DomSanitizer} from "@angular/platform-browser";
 import {InformationComponent} from "./information/information.component";
 import {EpisodeComponent} from "./episode/episode.component";
@@ -14,8 +14,7 @@ import {MatTooltip} from "@angular/material/tooltip";
 import {ConversationComponent} from "./conversation/conversation.component";
 
 @Component({
-  selector: 'app-detail',
-  standalone: true,
+    selector: 'app-detail',
     imports: [
         AvisComponent,
         InformationComponent,
@@ -24,8 +23,8 @@ import {ConversationComponent} from "./conversation/conversation.component";
         MatTooltip,
         NgClass,
     ],
-  templateUrl: './detail.component.html',
-  styleUrl: './detail.component.sass'
+    templateUrl: './detail.component.html',
+    styleUrl: './detail.component.sass'
 })
 export class DetailComponent implements OnInit {
 
@@ -47,7 +46,7 @@ export class DetailComponent implements OnInit {
                 this.detailService.getHasVoted(this.event.id)
                 this.detailService.reloadHasVoted.set(false)
             }
-        }, {allowSignalWrites: true});
+        });
     }
 
     ngOnInit(): void {

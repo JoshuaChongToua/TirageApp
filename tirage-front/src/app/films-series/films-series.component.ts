@@ -3,13 +3,12 @@ import {MainPageComponent} from "./main-page/main-page.component";
 import {NavbarService} from "../navbar/services/navbar.service";
 
 @Component({
-  selector: 'app-films-series',
-  standalone: true,
+    selector: 'app-films-series',
     imports: [
         MainPageComponent
     ],
-  templateUrl: './films-series.component.html',
-  styleUrl: './films-series.component.scss'
+    templateUrl: './films-series.component.html',
+    styleUrl: './films-series.component.scss'
 })
 export class FilmsSeriesComponent {
 

@@ -1,15 +1,11 @@
 import {Component, OnInit, WritableSignal} from '@angular/core';
-import {MatTooltip} from "@angular/material/tooltip";
 import {ListeAmisService} from "./services/liste-amis.service";
 
 @Component({
-  selector: 'app-liste-amis',
-  standalone: true,
-    imports: [
-        MatTooltip
-    ],
-  templateUrl: './liste-amis.component.html',
-  styleUrl: './liste-amis.component.sass'
+    selector: 'app-liste-amis',
+    imports: [],
+    templateUrl: './liste-amis.component.html',
+    styleUrl: './liste-amis.component.sass'
 })
 export class ListeAmisComponent implements OnInit {
 

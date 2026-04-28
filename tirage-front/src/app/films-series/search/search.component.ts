@@ -6,15 +6,14 @@ import {MainPageService} from "../main-page/services/main-page.service";
 import {LoaderMovieComponent} from "../../shared/loader/loader-movie/loader-movie.component";
 
 @Component({
-  selector: 'app-search',
-  standalone: true,
+    selector: 'app-search',
     imports: [
         ReactiveFormsModule,
         ListeTitresComponent,
         LoaderMovieComponent,
     ],
-  templateUrl: './search.component.html',
-  styleUrl: './search.component.sass'
+    templateUrl: './search.component.html',
+    styleUrl: './search.component.sass'
 })
 export class SearchComponent implements OnInit {
 
@@ -32,7 +31,7 @@ export class SearchComponent implements OnInit {
             if (this.mainPageService.selectedType() === "tv") {
                 this.searchService.getSeriesByName(this.search.value);
             }
-        }, {allowSignalWrites: true});
+        });
     }
 
     ngOnInit() {

@@ -5,13 +5,12 @@ import {AgGridAngular} from "ag-grid-angular";
 import {CardNoteAvisComponent} from "./card-note-avis/card-note-avis.component";
 
 @Component({
-  selector: 'app-avis',
-  standalone: true,
+    selector: 'app-avis',
     imports: [
         AgGridAngular
     ],
-  templateUrl: './avis.component.html',
-  styleUrl: './avis.component.sass',
+    templateUrl: './avis.component.html',
+    styleUrl: './avis.component.sass',
     encapsulation: ViewEncapsulation.None
 })
 export class AvisComponent implements OnInit {

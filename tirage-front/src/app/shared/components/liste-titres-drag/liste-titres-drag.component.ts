@@ -7,11 +7,10 @@ import {DatePipe} from "@angular/common";
 import {DetailService} from "../../../films-series/detail/services/detail.service";
 
 @Component({
-  selector: 'app-liste-titres-drag',
-  standalone: true,
+    selector: 'app-liste-titres-drag',
     imports: [DragScrollComponent, DragScrollItemDirective, DatePipe,],
-  templateUrl: './liste-titres-drag.component.html',
-  styleUrl: './liste-titres-drag.component.sass',
+    templateUrl: './liste-titres-drag.component.html',
+    styleUrl: './liste-titres-drag.component.sass',
     encapsulation: ViewEncapsulation.None
 })
 export class ListeTitresDragComponent {

@@ -4,14 +4,13 @@ import {SearchService} from "./services/search.service";
 import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
-  selector: 'app-search',
-  standalone: true,
+    selector: 'app-search',
     imports: [
         ReactiveFormsModule,
         MatTooltip
     ],
-  templateUrl: './search.component.html',
-  styleUrl: './search.component.sass'
+    templateUrl: './search.component.html',
+    styleUrl: './search.component.sass'
 })
 export class SearchComponent {
 
