@@ -5,7 +5,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {AddNoteAvisComponent} from "./add-note-avis/add-note-avis.component";
 import {AvisComponent} from "./avis/avis.component";
 import {StarRatingComponent} from "../../shared/star-rating/star-rating.component";
-import {NgClass, NgIf} from "@angular/common";
+import { NgClass } from "@angular/common";
 import {DomSanitizer} from "@angular/platform-browser";
 import {InformationComponent} from "./information/information.component";
 import {EpisodeComponent} from "./episode/episode.component";
