@@ -1,4 +1,4 @@
-import {Component, OnInit, WritableSignal} from '@angular/core';
+import {Component, HostListener, OnInit, WritableSignal} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -15,6 +15,13 @@ import {NavbarService} from "./services/navbar.service";
     styleUrl: './navbar.component.sass'
 })
 export class NavbarComponent implements OnInit {
+
+    constructor(private loginService: LoginService, private router: Router, private mainPageService: MainPageService, private navbarService: NavbarService) {
+        this.currentUser = this.loginService.userConnected$
+        this.selectedType = this.mainPageService.selectedType
+        this.showType = this.navbarService.showType
+    }
+
     currentUser!: Observable<any>
     user!: any
     isLoggedIn: boolean = false
@@ -22,11 +29,8 @@ export class NavbarComponent implements OnInit {
     selectedType!: WritableSignal<any>
     showType!: WritableSignal<any>
 
-    constructor(private loginService: LoginService, private router: Router, private mainPageService: MainPageService, private navbarService: NavbarService) {
-        this.currentUser = this.loginService.userConnected$
-        this.selectedType = this.mainPageService.selectedType
-        this.showType = this.navbarService.showType
-    }
+    isNavbarVisible = true;
+    lastScrollPosition = 0;
 
     ngOnInit(): void {
         this.loginService._isLogged$.subscribe(loggedIn => {
@@ -50,5 +54,16 @@ export class NavbarComponent implements OnInit {
         this.loginService.logout()
         this.router.navigateByUrl('/login')
         this.isLoggedIn = false
+    }
+
+
+    @HostListener('window:scroll', [])
+    onWindowScroll() {
+        const currentScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+
+        // Si on scroll vers le bas : on cache la navbar
+        this.isNavbarVisible = !(currentScrollPosition > this.lastScrollPosition && currentScrollPosition > 50);
+
+        this.lastScrollPosition = currentScrollPosition;
     }
 }

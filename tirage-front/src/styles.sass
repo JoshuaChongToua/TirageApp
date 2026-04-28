@@ -5,7 +5,9 @@ html, body
     height: 100%
 body
     margin: 0
-    font-family: Roboto, "Helvetica Neue", sans-serif
+    font-family: 'Epilogue', sans-serif
+    font-weight: 400
+    font-style: normal
     background: black
 
 
@@ -45,50 +47,6 @@ body
         .drag-scroll-content
             display: flex !important
             gap: 20px
-
-
-.glass
-    display: flex
-    gap: 10px
-    padding: 12px 32px
-    text-decoration: none
-    border-radius: 15px
-    background-color: rgba(255,255,255,0.1)
-    border: 1px solid rgba(255,255,255,0.1)
-    color: rgba(255,255,255,0.8)
-    font-size: 14px
-    letter-spacing: 2px
-    cursor: pointer
-
-    &.transparent
-        background-color: transparent
-        border: transparent
-
-    &.selected
-        background-color: rgba(255,255,255,0.2)
-
-    &.disabled
-        background-color: rgba(255,255,255,0.0)
-        cursor: initial
-
-        &:hover
-            background-color: rgba(255,255,255,0.0)
-
-    &.no-hover:hover
-        background-color: rgba(255,255,255,0.1)
-        cursor: default
-
-    &.circle
-        padding: 40px
-        width: 40px
-        height: 40px
-        border-radius: 50%
-        display: flex
-        align-items: center
-        justify-content: center
-
-.glass:hover
-    background-color: rgba(255,255,255,0.2)
 
 
 .card

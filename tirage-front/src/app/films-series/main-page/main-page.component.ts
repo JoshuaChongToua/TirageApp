@@ -22,42 +22,7 @@ import {LoaderMovieComponent} from "../../shared/loader/loader-movie/loader-movi
     styleUrl: './main-page.component.sass'
 })
 export class MainPageComponent implements OnInit {
-
-    //Movies
-    moviestrending!: WritableSignal<any>
-    moviesPopular !: WritableSignal<any>
-
-    //
-    selectedType!: WritableSignal<any>
-    ongletToDisplay: WritableSignal<any> = signal('main')
-    titlesGenre!: WritableSignal<any>
-
-    //Series
-    seriesTopRated!: WritableSignal<any>
-    lastTitles!: WritableSignal<any>
-    seriestrending!: WritableSignal<any>
-    seriesPopular!: WritableSignal<any>
-
-    //Loader
-    latestTitlesLoader!: WritableSignal<any>
-    latestTitlesGenreLoader!: WritableSignal<any>
-
     constructor(private mainPageService: MainPageService, private dialog: MatDialog, private detailService: DetailService) {
-        this.moviestrending = this.mainPageService.moviestrending;
-        this.moviesPopular = this.mainPageService.moviesPopular;
-
-        this.selectedType = this.mainPageService.selectedType;
-
-        this.seriesTopRated = this.mainPageService.seriesTopRated;
-        this.seriestrending = this.mainPageService.seriestrending;
-        this.seriesPopular = this.mainPageService.seriesPopular;
-
-        this.lastTitles = this.mainPageService.latestTitles
-        this.titlesGenre = this.mainPageService.titlesGenre;
-
-        this.latestTitlesLoader = this.mainPageService.latestTitlesLoader
-        this.latestTitlesGenreLoader = this.mainPageService.latestTitlesGenreLoader
-
         effect(() => {
             if (this.selectedType() === "movie") {
                 this.mainPageService.getLatestMovies();
@@ -71,11 +36,29 @@ export class MainPageComponent implements OnInit {
                 this.mainPageService.getSeriesPopular();
             }
         });
-
     }
 
+    //Movies
+    moviestrending: WritableSignal<any> = this.mainPageService.moviestrending
+    moviesPopular : WritableSignal<any> = this.mainPageService.moviesPopular
+
+    //
+    selectedType: WritableSignal<any> = this.mainPageService.selectedType;
+    ongletToDisplay: WritableSignal<any> = signal('main')
+    titlesGenre: WritableSignal<any> = this.mainPageService.titlesGenre;
+
+    //Series
+    seriesTopRated: WritableSignal<any> = this.mainPageService.seriesTopRated;
+    lastTitles: WritableSignal<any> = this.mainPageService.latestTitles
+    seriestrending: WritableSignal<any> = this.mainPageService.seriestrending;
+    seriesPopular: WritableSignal<any> = this.mainPageService.seriesPopular;
+
+    //Loader
+    latestTitlesLoader: WritableSignal<any> = this.mainPageService.latestTitlesLoader
+    latestTitlesGenreLoader: WritableSignal<any> = this.mainPageService.latestTitlesGenreLoader
+
+
     ngOnInit() {
-        this.mainPageService.getLatestMovies()
 	}
 
     openDetail(event: any) {
