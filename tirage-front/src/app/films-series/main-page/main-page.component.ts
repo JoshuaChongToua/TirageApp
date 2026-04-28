@@ -10,8 +10,7 @@ import {LoaderMovieComponent} from "../../shared/loader/loader-movie/loader-movi
 
 
 @Component({
-  selector: 'app-main-page',
-  standalone: true,
+    selector: 'app-main-page',
     imports: [
         ListeTitresDragComponent,
         DragScrollComponent,
@@ -19,8 +18,8 @@ import {LoaderMovieComponent} from "../../shared/loader/loader-movie/loader-movi
         ListeTitresComponent,
         LoaderMovieComponent
     ],
-  templateUrl: './main-page.component.html',
-  styleUrl: './main-page.component.sass'
+    templateUrl: './main-page.component.html',
+    styleUrl: './main-page.component.sass'
 })
 export class MainPageComponent implements OnInit {
 

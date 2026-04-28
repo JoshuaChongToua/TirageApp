@@ -3,13 +3,12 @@ import {DemandeService} from "./services/demande.service";
 import {MatTooltip} from "@angular/material/tooltip";
 
 @Component({
-  selector: 'app-demande',
-  standalone: true,
+    selector: 'app-demande',
     imports: [
         MatTooltip
     ],
-  templateUrl: './demande.component.html',
-  styleUrl: './demande.component.sass'
+    templateUrl: './demande.component.html',
+    styleUrl: './demande.component.sass'
 })
 export class DemandeComponent {
 

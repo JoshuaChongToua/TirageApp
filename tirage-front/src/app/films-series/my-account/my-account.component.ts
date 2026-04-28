@@ -11,7 +11,6 @@ import {NavbarService} from "../../navbar/services/navbar.service";
 
 @Component({
     selector: 'app-my-account',
-    standalone: true,
     imports: [
         ListeTitresDragComponent,
         TitreNotedComponent,
@@ -19,7 +18,7 @@ import {NavbarService} from "../../navbar/services/navbar.service";
     ],
     templateUrl: './my-account.component.html',
     styleUrl: './my-account.component.sass'
-    })
+})
 export class MyAccountComponent implements OnInit {
 
     titresNotedLimited!: WritableSignal<any>

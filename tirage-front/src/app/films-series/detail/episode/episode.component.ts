@@ -5,8 +5,7 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
 import {EpisodeService} from "./service/episode.service";
 
 @Component({
-  selector: 'app-episode',
-  standalone: true,
+    selector: 'app-episode',
     imports: [
         MatFormField,
         MatSelect,
@@ -14,8 +13,8 @@ import {EpisodeService} from "./service/episode.service";
         MatLabel,
         ReactiveFormsModule
     ],
-  templateUrl: './episode.component.html',
-  styleUrl: './episode.component.sass'
+    templateUrl: './episode.component.html',
+    styleUrl: './episode.component.sass'
 })
 export class EpisodeComponent {
 

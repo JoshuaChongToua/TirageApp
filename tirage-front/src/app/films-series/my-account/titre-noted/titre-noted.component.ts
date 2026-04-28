@@ -4,13 +4,12 @@ import {ListeTitresComponent} from "../../../shared/components/liste-titres/list
 import {MyAccountService} from "../services/my-account.service";
 
 @Component({
-  selector: 'app-titre-noted',
-  standalone: true,
-	imports: [
-		ListeTitresComponent
-	],
-  templateUrl: './titre-noted.component.html',
-  styleUrl: './titre-noted.component.sass'
+    selector: 'app-titre-noted',
+    imports: [
+        ListeTitresComponent
+    ],
+    templateUrl: './titre-noted.component.html',
+    styleUrl: './titre-noted.component.sass'
 })
 export class TitreNotedComponent implements OnInit {
 

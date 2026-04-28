@@ -7,14 +7,13 @@ import {DetailService} from "../../../films-series/detail/services/detail.servic
 import {MatDialog} from "@angular/material/dialog";
 
 @Component({
-  selector: 'app-open-conversation',
-  standalone: true,
+    selector: 'app-open-conversation',
     imports: [
         NgClass,
         ReactiveFormsModule
     ],
-  templateUrl: './open-conversation.component.html',
-  styleUrl: './open-conversation.component.sass'
+    templateUrl: './open-conversation.component.html',
+    styleUrl: './open-conversation.component.sass'
 })
 export class OpenConversationComponent {
 

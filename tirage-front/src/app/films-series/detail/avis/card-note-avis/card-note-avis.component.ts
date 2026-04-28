@@ -5,15 +5,14 @@ import {DatePipe, NgClass} from "@angular/common";
 import {ICellRendererAngularComp} from "ag-grid-angular";
 
 @Component({
-  selector: 'app-card-note-avis',
-  standalone: true,
+    selector: 'app-card-note-avis',
     imports: [
         StarRatingComponent,
         DatePipe,
         NgClass
     ],
-  templateUrl: './card-note-avis.component.html',
-  styleUrl: './card-note-avis.component.sass'
+    templateUrl: './card-note-avis.component.html',
+    styleUrl: './card-note-avis.component.sass'
 })
 export class CardNoteAvisComponent implements ICellRendererAngularComp {
 

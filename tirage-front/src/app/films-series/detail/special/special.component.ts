@@ -4,14 +4,13 @@ import {SpecialService} from "./service/special.service";
 import {DragScrollComponent, DragScrollItemDirective} from "ngx-drag-scroll";
 
 @Component({
-  selector: 'app-special',
-  standalone: true,
+    selector: 'app-special',
     imports: [
         DragScrollComponent,
         DragScrollItemDirective
     ],
-  templateUrl: './special.component.html',
-  styleUrl: './special.component.sass'
+    templateUrl: './special.component.html',
+    styleUrl: './special.component.sass'
 })
 export class SpecialComponent implements OnInit, OnDestroy {
 

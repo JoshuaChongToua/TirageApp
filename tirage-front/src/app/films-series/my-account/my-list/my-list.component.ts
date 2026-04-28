@@ -4,13 +4,12 @@ import {MyAccountService} from "../services/my-account.service";
 import {ListeTitresComponent} from "../../../shared/components/liste-titres/liste-titres.component";
 
 @Component({
-  selector: 'app-my-list',
-  standalone: true,
-	imports: [
-		ListeTitresComponent
-	],
-  templateUrl: './my-list.component.html',
-  styleUrl: './my-list.component.sass'
+    selector: 'app-my-list',
+    imports: [
+        ListeTitresComponent
+    ],
+    templateUrl: './my-list.component.html',
+    styleUrl: './my-list.component.sass'
 })
 export class MyListComponent implements OnInit, OnDestroy {
 

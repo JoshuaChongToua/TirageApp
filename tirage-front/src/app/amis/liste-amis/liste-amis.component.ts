@@ -3,13 +3,12 @@ import {MatTooltip} from "@angular/material/tooltip";
 import {ListeAmisService} from "./services/liste-amis.service";
 
 @Component({
-  selector: 'app-liste-amis',
-  standalone: true,
+    selector: 'app-liste-amis',
     imports: [
         MatTooltip
     ],
-  templateUrl: './liste-amis.component.html',
-  styleUrl: './liste-amis.component.sass'
+    templateUrl: './liste-amis.component.html',
+    styleUrl: './liste-amis.component.sass'
 })
 export class ListeAmisComponent implements OnInit {
 

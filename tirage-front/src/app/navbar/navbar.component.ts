@@ -13,7 +13,6 @@ import {NavbarService} from "./services/navbar.service";
 
 @Component({
     selector: 'app-navbar',
-    standalone: true,
     imports: [RouterLink, RouterLinkActive, CommonModule, MatMenuTrigger, MatMenu, MatMenuItem, MatExpansionPanel, MatExpansionModule],
     templateUrl: './navbar.component.html',
     styleUrl: './navbar.component.sass'

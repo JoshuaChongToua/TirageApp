@@ -7,14 +7,13 @@ import {MainPageService} from "../../../films-series/main-page/services/main-pag
 import {DetailService} from "../../../films-series/detail/services/detail.service";
 
 @Component({
-  selector: 'app-liste-titres',
-  standalone: true,
+    selector: 'app-liste-titres',
     imports: [
         DragScrollItemDirective,
         DatePipe
     ],
-  templateUrl: './liste-titres.component.html',
-  styleUrl: './liste-titres.component.sass'
+    templateUrl: './liste-titres.component.html',
+    styleUrl: './liste-titres.component.sass'
 })
 export class ListeTitresComponent {
 

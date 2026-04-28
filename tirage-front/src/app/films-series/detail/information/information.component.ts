@@ -3,13 +3,12 @@ import {StarRatingComponent} from "../../../shared/star-rating/star-rating.compo
 import {DetailService} from "../services/detail.service";
 
 @Component({
-  selector: 'app-information',
-  standalone: true,
+    selector: 'app-information',
     imports: [
         StarRatingComponent
     ],
-  templateUrl: './information.component.html',
-  styleUrl: './information.component.sass'
+    templateUrl: './information.component.html',
+    styleUrl: './information.component.sass'
 })
 export class InformationComponent {
 

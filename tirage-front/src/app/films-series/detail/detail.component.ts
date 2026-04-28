@@ -14,8 +14,7 @@ import {MatTooltip} from "@angular/material/tooltip";
 import {ConversationComponent} from "./conversation/conversation.component";
 
 @Component({
-  selector: 'app-detail',
-  standalone: true,
+    selector: 'app-detail',
     imports: [
         AvisComponent,
         InformationComponent,
@@ -24,8 +23,8 @@ import {ConversationComponent} from "./conversation/conversation.component";
         MatTooltip,
         NgClass,
     ],
-  templateUrl: './detail.component.html',
-  styleUrl: './detail.component.sass'
+    templateUrl: './detail.component.html',
+    styleUrl: './detail.component.sass'
 })
 export class DetailComponent implements OnInit {
 

@@ -11,8 +11,7 @@ import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {DetailService} from "../services/detail.service";
 
 @Component({
-  selector: 'app-add-note-avis',
-  standalone: true,
+    selector: 'app-add-note-avis',
     imports: [
         StarRatingComponent,
         MatFormField,
@@ -23,8 +22,8 @@ import {DetailService} from "../services/detail.service";
         MatSlideToggle,
         FormsModule
     ],
-  templateUrl: './add-note-avis.component.html',
-  styleUrl: './add-note-avis.component.sass'
+    templateUrl: './add-note-avis.component.html',
+    styleUrl: './add-note-avis.component.sass'
 })
 export class AddNoteAvisComponent implements OnInit {
     noteAvisForm!: FormGroup;

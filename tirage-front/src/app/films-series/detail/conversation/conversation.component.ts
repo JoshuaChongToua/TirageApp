@@ -6,15 +6,14 @@ import {NgClass} from "@angular/common";
 import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
-  selector: 'app-conversation',
-  standalone: true,
+    selector: 'app-conversation',
     imports: [
         NgClass,
         FormsModule,
         ReactiveFormsModule
     ],
-  templateUrl: './conversation.component.html',
-  styleUrl: './conversation.component.sass'
+    templateUrl: './conversation.component.html',
+    styleUrl: './conversation.component.sass'
 })
 export class ConversationComponent {
 

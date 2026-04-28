@@ -9,8 +9,7 @@ import {MatButtonModule} from "@angular/material/button";
 
 
 @Component({
-  selector: 'app-login',
-  standalone: true,
+    selector: 'app-login',
     imports: [CommonModule,
         ReactiveFormsModule,
         MatStepper,
@@ -22,8 +21,8 @@ import {MatButtonModule} from "@angular/material/button";
         MatStepperPrevious,
         MatButtonModule,
     ],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.sass'],
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.sass']
 })
 export class LoginComponent implements OnInit {
     errorMessage: string | null = null;

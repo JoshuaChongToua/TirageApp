@@ -5,13 +5,12 @@ import {Observable} from "rxjs";
 import {LoginService} from "../../login/services/login.service";
 
 @Component({
-  selector: 'app-conversation',
-  standalone: true,
+    selector: 'app-conversation',
     imports: [
         OpenConversationComponent
     ],
-  templateUrl: './conversation.component.html',
-  styleUrl: './conversation.component.sass'
+    templateUrl: './conversation.component.html',
+    styleUrl: './conversation.component.sass'
 })
 export class ConversationComponent {
 

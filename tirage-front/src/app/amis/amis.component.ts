@@ -9,8 +9,7 @@ import {ListeAmisComponent} from "./liste-amis/liste-amis.component";
 import {ConversationComponent} from "./conversation/conversation.component";
 
 @Component({
-  selector: 'app-amis',
-  standalone: true,
+    selector: 'app-amis',
     imports: [
         ReactiveFormsModule,
         SearchComponent,
@@ -19,8 +18,8 @@ import {ConversationComponent} from "./conversation/conversation.component";
         ListeAmisComponent,
         ConversationComponent
     ],
-  templateUrl: './amis.component.html',
-  styleUrl: './amis.component.sass'
+    templateUrl: './amis.component.html',
+    styleUrl: './amis.component.sass'
 })
 export class AmisComponent {
 

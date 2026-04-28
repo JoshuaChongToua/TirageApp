@@ -7,11 +7,10 @@ import { User } from './login/interface/user.interface';
 import { DragScrollComponent, DragScrollItemDirective } from 'ngx-drag-scroll';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, MainComponent, NavbarComponent, RouterLink, RouterLinkActive, DragScrollComponent, DragScrollItemDirective,],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+    selector: 'app-root',
+    imports: [RouterOutlet, MainComponent, NavbarComponent, RouterLink, RouterLinkActive, DragScrollComponent, DragScrollItemDirective,],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss'
 })
 export class AppComponent {
 
