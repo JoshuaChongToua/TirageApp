@@ -39,7 +39,7 @@ export class OpenConversationComponent {
                     this.conversationService.scroll.set(false);
                 }, 0);
             }
-        }, {allowSignalWrites: true});
+        });
     }
 
     view!: WritableSignal<"allConversations" | "singleConversation">

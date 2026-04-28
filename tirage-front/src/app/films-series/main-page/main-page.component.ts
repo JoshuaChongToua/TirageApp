@@ -70,7 +70,7 @@ export class MainPageComponent implements OnInit {
                 this.mainPageService.getSeriesTrending();
                 this.mainPageService.getSeriesPopular();
             }
-        }, { allowSignalWrites: true });
+        });
 
     }
 

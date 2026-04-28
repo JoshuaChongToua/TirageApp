@@ -27,7 +27,7 @@ export class SpecialComponent implements OnInit, OnDestroy {
                 })
                 this.videosYoutube.set(list)
             }
-        }, {allowSignalWrites: true});
+        });
     }
 
     ngOnInit() {

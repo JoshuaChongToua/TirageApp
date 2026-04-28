@@ -27,7 +27,7 @@ export class InformationComponent {
             if (this.reloadHasVoted()) {
                 this.detailService.getNoteAverage(this.titre.id)
             }
-        }, {allowSignalWrites: true});
+        });
 
         this.reloadHasVoted = this.detailService.reloadHasVoted
     }

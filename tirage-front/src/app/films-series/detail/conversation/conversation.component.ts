@@ -27,7 +27,7 @@ export class ConversationComponent {
                 this.closeModal()
                 this.conversationService.closeModal.set(false)
             }
-        }, {allowSignalWrites: true});
+        });
     }
     messageToSend!: FormControl
     conversationIds!: FormControl

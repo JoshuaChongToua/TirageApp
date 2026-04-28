@@ -31,7 +31,7 @@ export class SearchComponent implements OnInit {
             if (this.mainPageService.selectedType() === "tv") {
                 this.searchService.getSeriesByName(this.search.value);
             }
-        }, {allowSignalWrites: true});
+        });
     }
 
     ngOnInit() {

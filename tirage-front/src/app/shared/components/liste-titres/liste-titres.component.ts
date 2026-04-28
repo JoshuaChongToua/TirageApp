@@ -1,5 +1,4 @@
 import {Component, Input, WritableSignal} from '@angular/core';
-import {DragScrollItemDirective} from "ngx-drag-scroll";
 import {DetailComponent} from "../../../films-series/detail/detail.component";
 import {MatDialog} from "@angular/material/dialog";
 import {DatePipe} from "@angular/common";
@@ -9,7 +8,6 @@ import {DetailService} from "../../../films-series/detail/services/detail.servic
 @Component({
     selector: 'app-liste-titres',
     imports: [
-        DragScrollItemDirective,
         DatePipe
     ],
     templateUrl: './liste-titres.component.html',

@@ -46,7 +46,7 @@ export class DetailComponent implements OnInit {
                 this.detailService.getHasVoted(this.event.id)
                 this.detailService.reloadHasVoted.set(false)
             }
-        }, {allowSignalWrites: true});
+        });
     }
 
     ngOnInit(): void {

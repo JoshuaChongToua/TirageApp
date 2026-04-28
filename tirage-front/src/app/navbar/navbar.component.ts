@@ -5,15 +5,12 @@ import { Observable } from 'rxjs';
 import { LoginService } from '../login/services/login.service';
 import {MainPageService} from "../films-series/main-page/services/main-page.service";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
-import {
-    MatExpansionModule,
-    MatExpansionPanel,
-} from "@angular/material/expansion";
+import {MatExpansionModule,} from "@angular/material/expansion";
 import {NavbarService} from "./services/navbar.service";
 
 @Component({
     selector: 'app-navbar',
-    imports: [RouterLink, RouterLinkActive, CommonModule, MatMenuTrigger, MatMenu, MatMenuItem, MatExpansionPanel, MatExpansionModule],
+    imports: [RouterLink, RouterLinkActive, CommonModule, MatMenuTrigger, MatMenu, MatMenuItem, MatExpansionModule],
     templateUrl: './navbar.component.html',
     styleUrl: './navbar.component.sass'
 })

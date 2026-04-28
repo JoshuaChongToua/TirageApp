@@ -40,7 +40,7 @@
                 </mat-form-field>
               </div>
               <div>
-                <button type="button" [ngClass]="!email?.value ? 'disabled' : ''" [disabled]="!email?.value" class="glass" matButton matStepperNext>
+                <button type="button" [ngClass]="!email.value ? 'disabled' : ''" [disabled]="!email.value" class="glass" matButton matStepperNext>
                   Next
                 </button>
               </div>
@@ -61,7 +61,7 @@
               </div>
               <div class="btn-step">
                 <button type="button" class="glass" matButton matStepperPrevious>Back</button>
-                <button type="button" class="glass" [ngClass]="password?.value !== passwordControl.value ? 'disabled' : ''" [disabled]="password?.value !== passwordControl.value" matButton>
+                <button type="button" class="glass" [ngClass]="password.value !== passwordControl.value ? 'disabled' : ''" [disabled]="password.value !== passwordControl.value" matButton>
                   S'inscrire
                 </button>
               </div>

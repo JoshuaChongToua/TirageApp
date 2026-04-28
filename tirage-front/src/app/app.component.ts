@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { MainComponent } from './main/main.component';
 import { LoginService } from './login/services/login.service';
-import { User } from './login/interface/user.interface';
-import { DragScrollComponent, DragScrollItemDirective } from 'ngx-drag-scroll';
 
 @Component({
     selector: 'app-root',
-    imports: [RouterOutlet, MainComponent, NavbarComponent, RouterLink, RouterLinkActive, DragScrollComponent, DragScrollItemDirective,],
+    imports: [RouterOutlet, MainComponent, NavbarComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
 })
