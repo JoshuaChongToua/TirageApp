@@ -33,7 +33,7 @@ export class ListeTitresComponent {
         this.detailService.getDetailIdMainPage(event).subscribe({
             next: (data: any) => {
                 this.dialog.open(DetailComponent, {
-                    width: data.backdrop_path ? '780px' : '1500px',
+                    width: '80vw',
                     maxWidth: '95vw',
                     maxHeight: '95vh',
                     height: 'auto',

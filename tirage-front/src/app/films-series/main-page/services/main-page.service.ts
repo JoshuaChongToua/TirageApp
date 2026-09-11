@@ -22,6 +22,7 @@ export class MainPageService {
 
     latestTitles : WritableSignal<any> = signal(null)
     titlesGenre : WritableSignal<any> = signal(null)
+    listGenres : WritableSignal<any> = signal(null)
 
     latestTitlesLoader : WritableSignal<any> = signal(false)
     latestTitlesGenreLoader : WritableSignal<any> = signal(false)
@@ -135,6 +136,7 @@ export class MainPageService {
         }).subscribe({
             next: (data: any) => {
                 this.latestTitles.set(data.results);
+                console.log(this.latestTitles())
                 this.latestTitlesLoader.set(false)
             }
         })
@@ -174,6 +176,30 @@ export class MainPageService {
         this.http.post(environment.apiURL + "/api/getNoteAverageList", {titreId: listId}).subscribe({
             next: (data: any) => {
                 this.notesAverage.set(data);
+            }
+        })
+    }
+
+    getGenresList(): any {
+        const reqMovies = this.http.get("https://api.themoviedb.org/3/genre/movie/list", {
+            params: {
+                api_key: environment.apiKey2,
+                language: 'fr-FR',
+                sort_by: 'release_date.desc',
+                page: 1,
+            },
+        })
+        const reqSeries =this.http.get("https://api.themoviedb.org/3/genre/tv/list", {
+            params: {
+                api_key: environment.apiKey2,
+                language: 'fr-FR',
+                sort_by: 'release_date.desc',
+                page: 1,
+            },
+        })
+        forkJoin([reqMovies, reqSeries]).subscribe({
+            next: ([genresMovies, genresSeries]: any) => {
+                this.listGenres.set([...genresMovies.genres, ...genresSeries.genres]);
             }
         })
     }

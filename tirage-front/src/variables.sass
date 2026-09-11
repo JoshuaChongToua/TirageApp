@@ -2,7 +2,44 @@
 
 $main-color: #6D28D9
 $secondary-color: #F59E0B
+$secondary-color-hover: color.adjust(#F59E0B, $lightness: -5%)
+$secondary-color-light: #FFB95F
 $third-color: #8B5CF6
+$text-purple: #D3BBFF
 $neutral-color: #0F172A
 $text-light-blue: #94A3B8
 $white: #FFFFFF
+$white-gray: #CBD5E1
+$background-color: #020617
+
+
+
+
+@keyframes pop
+    0%
+        transform: scale(0)
+        opacity: 0
+
+    50%
+        transform: scale(1.2)
+        opacity: 1
+
+    100%
+        transform: scale(1)
+        opacity: 1
+
+@keyframes likePop
+    0%
+        transform: scale(0)
+        opacity: 0
+
+    40%
+        transform: scale(1.35)
+        opacity: 1
+
+    70%
+        transform: scale(0.9)
+
+    100%
+        transform: scale(1)
+        opacity: 1

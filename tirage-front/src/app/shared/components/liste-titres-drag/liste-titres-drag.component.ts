@@ -3,12 +3,12 @@ import {DetailComponent} from "../../../films-series/detail/detail.component";
 import {MatDialog} from "@angular/material/dialog";
 import { DragScrollComponent, DragScrollItemDirective } from 'ngx-drag-scroll';
 import {MainPageService} from "../../../films-series/main-page/services/main-page.service";
-import {DatePipe} from "@angular/common";
+import {DatePipe, DecimalPipe} from "@angular/common";
 import {DetailService} from "../../../films-series/detail/services/detail.service";
 
 @Component({
     selector: 'app-liste-titres-drag',
-    imports: [DragScrollComponent, DragScrollItemDirective, DatePipe,],
+    imports: [DragScrollComponent, DragScrollItemDirective, DatePipe, DecimalPipe,],
     templateUrl: './liste-titres-drag.component.html',
     styleUrl: './liste-titres-drag.component.sass',
     encapsulation: ViewEncapsulation.None
@@ -19,6 +19,9 @@ export class ListeTitresDragComponent {
 	@Input() title: any;
 
     notesAverage!: WritableSignal<any>;
+    listGenres: WritableSignal<any> = this.mainPageService.listGenres;
+
+    protected readonly Math = Math;
 
 	constructor(private dialog: MatDialog, private mainPageService: MainPageService, private detailService: DetailService) {
         this.notesAverage = this.mainPageService.notesAverage;
@@ -26,7 +29,7 @@ export class ListeTitresDragComponent {
 
     ngOnInit() {
         if (this.titres) {
-            this.mainPageService.getNoteAverageList(this.titres.map((data: any) => data.id))
+            // this.mainPageService.getNoteAverageList(this.titres.map((data: any) => data.id))
         }
     }
 
@@ -34,7 +37,7 @@ export class ListeTitresDragComponent {
         this.detailService.getDetailIdMainPage(event).subscribe({
             next: (data: any) => {
                 this.dialog.open(DetailComponent, {
-                    width: data.backdrop_path ? '780px' : '1500px',
+                    width: '80vw',
                     maxWidth: '95vw',
                     maxHeight: '95vh',
                     height: 'auto',
@@ -44,4 +47,9 @@ export class ListeTitresDragComponent {
             }
         })
     }
+
+    getGenres(idGenre: any): any {
+        return this.listGenres()?.find((genre: any) => genre.id === idGenre)?.name;
+    }
+
 }

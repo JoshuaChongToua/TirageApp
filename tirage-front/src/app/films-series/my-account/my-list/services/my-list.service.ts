@@ -10,12 +10,19 @@ export class MyListService {
 
     myList:WritableSignal<any> = signal(null)
     myListLimited:WritableSignal<any> = signal(null)
+    loaderMyList: WritableSignal<boolean> = signal(true)
 
     constructor(private http: HttpClient) { }
 
     getMyList() {
+        this.loaderMyList.set(true);
         this.http.get(environment.apiURL + "/api/getMyList").subscribe({
             next: (data: any) => {
+                if (!data || data.length === 0) {
+                    this.myList.set(null);
+                    this.loaderMyList.set(false);
+                    return;
+                }
                 const requests = data.map((titre:any) =>
                     this.http.get(`https://api.themoviedb.org/3/${titre.type}/${titre.titre_id}`,
                         {
@@ -28,7 +35,13 @@ export class MyListService {
                 );
                 forkJoin(requests).subscribe({
                     next: (titresDetails: any) => {
-                        this.myList.set(titresDetails);
+                        if (titresDetails) {
+                            this.myList.set(titresDetails);
+                        }
+                        // this.loaderMyList.set(false);
+                    },
+                    error: (err: any) => {
+                        // this.loaderMyList.set(false);
                     }
                 });
             }

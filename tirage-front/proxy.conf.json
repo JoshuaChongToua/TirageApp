@@ -1,0 +1,10 @@
+{
+    "/lol-api": {
+        "target": "https://ddragon.leagueoflegends.com",
+        "secure": true,
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/lol-api": ""
+        }
+    }
+}

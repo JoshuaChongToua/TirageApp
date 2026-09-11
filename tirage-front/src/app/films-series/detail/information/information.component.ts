@@ -17,6 +17,7 @@ export class InformationComponent {
     reloadHasVoted!: WritableSignal<any>
     noteAverage!: WritableSignal<any>
     hasVoted!: WritableSignal<any>
+    addedToList = this.detailService.addedToList
 
     constructor(private detailService: DetailService) {
         this.noteAverage = this.detailService.noteAverage
@@ -36,5 +37,14 @@ export class InformationComponent {
         if (this.titreDetail) {
             return this.titreDetail?.genres.map((genre: any) => genre.name)
         }
+    }
+
+    addToList(titre: any) {
+        const type = titre.release_date ? "movie" : "tv"
+        this.detailService.addToList(titre.id, type)
+    }
+
+    removeFromList(titre: any) {
+        this.detailService.removeFromList(titre.id)
     }
 }

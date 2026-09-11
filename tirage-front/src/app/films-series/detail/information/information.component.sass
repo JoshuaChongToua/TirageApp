@@ -1,6 +1,41 @@
+@use '../../../../variables' as *
+
 .bloc
-    .title
-        color: white
-        span
-            color: white
-            font-weight: bold
+    padding-top: 20px
+    .overview-cta
+        display: flex
+
+        .overview
+            width: 75%
+            color: $white-gray
+
+        .cta
+            display: flex
+            flex-direction: column
+            flex: 1
+            gap: 10px
+
+            .watchlist
+                width: 70%
+                align-self: flex-end
+                background-color: $secondary-color
+                color: $neutral-color !important
+                font-weight: bold
+                font-size: 14px
+                svg
+                    fill: $neutral-color
+                    path
+                        fill: $neutral-color !important
+
+            .review
+                width: 70%
+                align-self: flex-end
+                background-color: $main-color
+                //color: $neutral-color !important
+                font-weight: bold
+                font-size: 14px
+
+            .share
+                width: 70%
+                align-self: flex-end
+

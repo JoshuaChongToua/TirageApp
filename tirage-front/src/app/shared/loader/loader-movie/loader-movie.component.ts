@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
     selector: 'app-loader-movie',
@@ -7,5 +7,7 @@ import { Component } from '@angular/core';
     styleUrl: './loader-movie.component.scss'
 })
 export class LoaderMovieComponent {
+    @Input() height!: string;
+
 
 }

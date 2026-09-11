@@ -7,6 +7,8 @@ import {FilmsSeriesComponent} from "./films-series/films-series.component";
 import {SearchComponent} from "./films-series/search/search.component";
 import {MyAccountComponent} from "./films-series/my-account/my-account.component";
 import {AmisComponent} from "./amis/amis.component";
+import {LolComponent} from "./lol/lol.component";
+import {ChampionComponent} from "./lol/champion/champion.component";
 
 
 export const routes: Routes = [
@@ -18,6 +20,8 @@ export const routes: Routes = [
     { path: 'main-page', component: MainPageComponent, canActivate:[isLogged()] },
     { path: 'search', component: SearchComponent, canActivate:[isLogged()] },
     { path: 'my-account', component: MyAccountComponent, canActivate:[isLogged()] },
+    { path: 'lol', component: LolComponent },
+    { path: 'lol/champion/:id', component: ChampionComponent },
     { path: '**', redirectTo: '' }
 ];
 

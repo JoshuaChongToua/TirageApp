@@ -5,13 +5,14 @@ import {MatDialog} from "@angular/material/dialog";
 import {AddNoteAvisComponent} from "./add-note-avis/add-note-avis.component";
 import {AvisComponent} from "./avis/avis.component";
 import {StarRatingComponent} from "../../shared/star-rating/star-rating.component";
-import { NgClass } from "@angular/common";
+import {DatePipe, DecimalPipe, NgClass} from "@angular/common";
 import {DomSanitizer} from "@angular/platform-browser";
 import {InformationComponent} from "./information/information.component";
 import {EpisodeComponent} from "./episode/episode.component";
 import {SpecialComponent} from "./special/special.component";
 import {MatTooltip} from "@angular/material/tooltip";
 import {ConversationComponent} from "./conversation/conversation.component";
+import {MainPageService} from "../main-page/services/main-page.service";
 
 @Component({
     selector: 'app-detail',
@@ -22,6 +23,8 @@ import {ConversationComponent} from "./conversation/conversation.component";
         SpecialComponent,
         MatTooltip,
         NgClass,
+        DecimalPipe,
+        DatePipe,
     ],
     templateUrl: './detail.component.html',
     styleUrl: './detail.component.sass'
@@ -30,17 +33,14 @@ export class DetailComponent implements OnInit {
 
     event: any;
 
-    eventDetail!: WritableSignal<any>
-    noteAverage!: WritableSignal<any>
+    eventDetail = this.detailService.event
+    noteAverage = this.detailService.noteAverage
     ongletToDisplay: WritableSignal<any> = signal('info')
-	addedToList!: WritableSignal<any>
-    hasVoted!: WritableSignal<any>
+    hasVoted = this.detailService.hasVoted
+    listGenres: WritableSignal<any> = this.mainPageService.listGenres;
+    protected readonly Math = Math;
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog, private detailService: DetailService) {
-        this.eventDetail = this.detailService.event
-        this.noteAverage = this.detailService.noteAverage
-        this.addedToList = this.detailService.addedToList
-        this.hasVoted = this.detailService.hasVoted
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialog: MatDialog, private detailService: DetailService, private mainPageService: MainPageService) {
         effect(() => {
             if (this.detailService.reloadHasVoted()) {
                 this.detailService.getHasVoted(this.event.id)
@@ -50,11 +50,15 @@ export class DetailComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        if (this.listGenres().length <= 0) {
+            this.mainPageService.getGenresList()
+        }
         this.event = this.data.event;
         this.detailService.getDetailId(this.event)
         this.detailService.getNoteAverage(this.event.id)
         this.detailService.getHasVoted(this.event.id)
         this.detailService.isAdded(this.event.id)
+
     }
 
     closeModal() {
@@ -67,14 +71,14 @@ export class DetailComponent implements OnInit {
         }
     }
 
-	addToList(titre: any) {
-		const type = titre.release_date ? "movie" : "tv"
-		this.detailService.addToList(titre.id, type)
-	}
+    addToList(titre: any) {
+        const type = titre.release_date ? "movie" : "tv"
+        this.detailService.addToList(titre.id, type)
+    }
 
-	removeFromList(titre: any) {
-		this.detailService.removeFromList(titre.id)
-	}
+    removeFromList(titre: any) {
+        this.detailService.removeFromList(titre.id)
+    }
 
     addNoteAndAvis(titre: any) {
         this.dialog.open(AddNoteAvisComponent, {
@@ -97,6 +101,10 @@ export class DetailComponent implements OnInit {
                 titre: titre,
             }
         });
+    }
+
+    getGenres(idGenre: any): any {
+        return this.listGenres()?.find((genre: any) => genre.id === idGenre)?.name;
     }
 
 }

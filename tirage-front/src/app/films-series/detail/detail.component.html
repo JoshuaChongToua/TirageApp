@@ -1,41 +1,41 @@
-@if (!eventDetail()?.backdrop_path) {
-    <div class="bloc">
-        <div class="left">
-            <div class="image-event">
-                <img src="https://image.tmdb.org/t/p/w342{{event.poster_path}}" alt="{{event.title}}">
-            </div>
-        </div>
-        <div class="right">
-            <div class="onglet">
-                <div class="onglet-name glass" (click)="selectOnglet('info')">
-                    Information
-                </div>
-                <div class="onglet-name glass" (click)="selectOnglet('avis')">
-                    Avis
-                </div>
-                @if (!event.release_date) {
-                    <div class="onglet-name glass" (click)="selectOnglet('episodes')">
-                        Episodes
-                    </div>
-                }
-                <div class="onglet-name glass" (click)="selectOnglet('special')">
-                    Spécial
-                </div>
-            </div>
-            <div class="info">
-                @if (ongletToDisplay() === "info") {
-                    <app-information [titre]="event" [titreDetail]="eventDetail()"></app-information>
-                } @else if (ongletToDisplay() === "avis") {
-                    <app-avis [titre]="event"></app-avis>
-                } @else if (ongletToDisplay() === "episodes") {
-                    <app-episode [titreDetail]="eventDetail()"></app-episode>
-                } @else if (ongletToDisplay() === "special") {
-                    <app-special [titre]="event"></app-special>
-                }
-            </div>
-        </div>
-    </div>
-} @else {
+<!--@if (!eventDetail()?.backdrop_path) {-->
+<!--    <div class="bloc">-->
+<!--        <div class="left">-->
+<!--            <div class="image-event">-->
+<!--                <img src="https://image.tmdb.org/t/p/w342{{event.poster_path}}" alt="{{event.title}}">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="right">-->
+<!--            <div class="onglet">-->
+<!--                <div class="onglet-name glass" (click)="selectOnglet('info')">-->
+<!--                    Information-->
+<!--                </div>-->
+<!--                <div class="onglet-name glass" (click)="selectOnglet('avis')">-->
+<!--                    Avis-->
+<!--                </div>-->
+<!--                @if (!event.release_date) {-->
+<!--                    <div class="onglet-name glass" (click)="selectOnglet('episodes')">-->
+<!--                        Episodes-->
+<!--                    </div>-->
+<!--                }-->
+<!--                <div class="onglet-name glass" (click)="selectOnglet('special')">-->
+<!--                    Spécial-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div class="info">-->
+<!--                @if (ongletToDisplay() === "info") {-->
+<!--                    <app-information [titre]="event" [titreDetail]="eventDetail()"></app-information>-->
+<!--                } @else if (ongletToDisplay() === "avis") {-->
+<!--                    <app-avis [titre]="event"></app-avis>-->
+<!--                } @else if (ongletToDisplay() === "episodes") {-->
+<!--                    <app-episode [titreDetail]="eventDetail()"></app-episode>-->
+<!--                } @else if (ongletToDisplay() === "special") {-->
+<!--                    <app-special [titre]="event"></app-special>-->
+<!--                }-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--} @else {-->
     <div class="bloc-paysage">
         <div class="image-info">
             <div class="banner-image">
@@ -44,37 +44,54 @@
             </div>
 
             <div class="info">
-                <h3 class="title">{{eventDetail().title ?? eventDetail().name}}</h3>
-                <div class="overview">
-                    {{eventDetail().overview}}
+                <div class="info-bulle">
+                    @for (genreId of eventDetail()?.genres?.slice(0, 4); track genreId) {
+                        <div class="genre-bulle">
+                            {{ getGenres(genreId.id) }}
+                        </div>
+                    }
+                </div>
+                <div class="title-line">
+                    <h3 class="title">{{eventDetail().title ?? eventDetail().name}}</h3>
+                    <div class="right-title">
+                        <div class="note">
+                            <span>
+                                {{ (Math.floor(eventDetail()?.vote_average * 10) / 10) | number:'1.1-1' }}
+                            </span>
+                        </div>
+                        <div class="info-detail">
+                            {{eventDetail().release_date | date:'yyyy'}} • {{eventDetail().runtime}} min
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="cta">
-            @if (!addedToList()) {
-                <svg matTooltip="Ajouter à ma liste" class="icon plus" (click)="addToList(event)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="#ffffff" d="M512 0C229.232 0 0 229.232 0 512c0 282.784 229.232 512 512 512c282.784 0 512-229.216 512-512C1024 229.232 794.784 0 512 0zm0 961.008c-247.024 0-448-201.984-448-449.01c0-247.024 200.976-448 448-448s448 200.977 448 448s-200.976 449.01-448 449.01zM736 480H544V288c0-17.664-14.336-32-32-32s-32 14.336-32 32v192H288c-17.664 0-32 14.336-32 32s14.336 32 32 32h192v192c0 17.664 14.336 32 32 32s32-14.336 32-32V544h192c17.664 0 32-14.336 32-32s-14.336-32-32-32z"/></svg>
-            } @else {
-                <svg matTooltip="Retirer de ma liste" (click)="removeFromList(event)" class="icon check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="#ffffff" d="M512 0C229.232 0 0 229.232 0 512c0 282.784 229.232 512 512 512c282.784 0 512-229.216 512-512C1024 229.232 794.784 0 512 0zm0 961.008c-247.024 0-448-201.984-448-449.01c0-247.024 200.976-448 448-448s448 200.977 448 448s-200.976 449.01-448 449.01zm204.336-636.352L415.935 626.944l-135.28-135.28c-12.496-12.496-32.752-12.496-45.264 0c-12.496 12.496-12.496 32.752 0 45.248l158.384 158.4c12.496 12.48 32.752 12.48 45.264 0c1.44-1.44 2.673-3.009 3.793-4.64l318.784-320.753c12.48-12.496 12.48-32.752 0-45.263c-12.512-12.496-32.768-12.496-45.28 0z"/></svg>
-            }
-            <svg (click)="addNoteAndAvis(event)" matTooltip="{{hasVoted() ? 'Modifier votre avis' : 'Ajouter un avis'}}" class="icon like" [ngClass]="hasVoted() ? 'true' : ''" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26"><path d="M17.869 3.889c-2.096 0-3.887 1.494-4.871 2.524c-.984-1.03-2.771-2.524-4.866-2.524C4.521 3.889 2 6.406 2 10.009c0 3.97 3.131 6.536 6.16 9.018c1.43 1.173 2.91 2.385 4.045 3.729c.191.225.471.355.765.355h.058c.295 0 .574-.131.764-.355c1.137-1.344 2.616-2.557 4.047-3.729C20.867 16.546 24 13.98 24 10.009c0-3.603-2.521-6.12-6.131-6.12z"/></svg>
-            <svg (click)="sendToConversation(event)" class="icon plus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path fill="#ffffff" d="M5 0v2C1 2 0 4.05 0 7c.52-1.98 2-3 4-3h1v2l3-3.16L5 0z"/></svg>
-        </div>
+<!--        <div class="cta">-->
+<!--            @if (!addedToList()) {-->
+<!--                <svg matTooltip="Ajouter à ma liste" class="icon plus" (click)="addToList(event)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="#ffffff" d="M512 0C229.232 0 0 229.232 0 512c0 282.784 229.232 512 512 512c282.784 0 512-229.216 512-512C1024 229.232 794.784 0 512 0zm0 961.008c-247.024 0-448-201.984-448-449.01c0-247.024 200.976-448 448-448s448 200.977 448 448s-200.976 449.01-448 449.01zM736 480H544V288c0-17.664-14.336-32-32-32s-32 14.336-32 32v192H288c-17.664 0-32 14.336-32 32s14.336 32 32 32h192v192c0 17.664 14.336 32 32 32s32-14.336 32-32V544h192c17.664 0 32-14.336 32-32s-14.336-32-32-32z"/></svg>-->
+<!--            } @else {-->
+<!--                <svg matTooltip="Retirer de ma liste" (click)="removeFromList(event)" class="icon check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path fill="#ffffff" d="M512 0C229.232 0 0 229.232 0 512c0 282.784 229.232 512 512 512c282.784 0 512-229.216 512-512C1024 229.232 794.784 0 512 0zm0 961.008c-247.024 0-448-201.984-448-449.01c0-247.024 200.976-448 448-448s448 200.977 448 448s-200.976 449.01-448 449.01zm204.336-636.352L415.935 626.944l-135.28-135.28c-12.496-12.496-32.752-12.496-45.264 0c-12.496 12.496-12.496 32.752 0 45.248l158.384 158.4c12.496 12.48 32.752 12.48 45.264 0c1.44-1.44 2.673-3.009 3.793-4.64l318.784-320.753c12.48-12.496 12.48-32.752 0-45.263c-12.512-12.496-32.768-12.496-45.28 0z"/></svg>-->
+<!--            }-->
+<!--            <svg (click)="addNoteAndAvis(event)" matTooltip="{{hasVoted() ? 'Modifier votre avis' : 'Ajouter un avis'}}" class="icon like" [ngClass]="hasVoted() ? 'true' : ''" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 26"><path d="M17.869 3.889c-2.096 0-3.887 1.494-4.871 2.524c-.984-1.03-2.771-2.524-4.866-2.524C4.521 3.889 2 6.406 2 10.009c0 3.97 3.131 6.536 6.16 9.018c1.43 1.173 2.91 2.385 4.045 3.729c.191.225.471.355.765.355h.058c.295 0 .574-.131.764-.355c1.137-1.344 2.616-2.557 4.047-3.729C20.867 16.546 24 13.98 24 10.009c0-3.603-2.521-6.12-6.131-6.12z"/></svg>-->
+<!--            <svg (click)="sendToConversation(event)" class="icon plus" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"><path fill="#ffffff" d="M5 0v2C1 2 0 4.05 0 7c.52-1.98 2-3 4-3h1v2l3-3.16L5 0z"/></svg>-->
+<!--        </div>-->
 
         <div class="onglet">
-            <div class="onglet-name glass" (click)="selectOnglet('info')">
-                Information
+            <div class="onglet-name" [ngClass]="ongletToDisplay() === 'info' ? 'selected' : ''" (click)="selectOnglet('info')">
+                Informations
             </div>
-            <div class="onglet-name glass" (click)="selectOnglet('avis')">
-                Avis
-            </div>
+
             @if (!event.release_date) {
-                <div class="onglet-name glass" (click)="selectOnglet('episodes')">
+                <div class="onglet-name" [ngClass]="ongletToDisplay() === 'episodes' ? 'selected' : ''" (click)="selectOnglet('episodes')">
                     Episodes
                 </div>
             }
-            <div class="onglet-name glass" (click)="selectOnglet('special')">
-                Spécial
+            <div class="onglet-name" [ngClass]="ongletToDisplay() === 'media' ? 'selected' : ''" (click)="selectOnglet('media')">
+                Gallerie
+            </div>
+            <div class="onglet-name" [ngClass]="ongletToDisplay() === 'avis' ? 'selected' : ''" (click)="selectOnglet('avis')">
+                Avis
             </div>
         </div>
         @if (ongletToDisplay() === "info") {
@@ -89,4 +106,4 @@
 
 
     </div>
-}
+<!--}-->

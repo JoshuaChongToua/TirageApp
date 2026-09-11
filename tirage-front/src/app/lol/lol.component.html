@@ -1,0 +1,15 @@
+@if (champions(); as list) {
+    <div class="wrapper-champions">
+        @for (champion of champions(); track champion.id) {
+            <div class="champion-card" routerLink="/lol/champion/{{ champion.id }}">
+                <img
+                    [src]="'https://ddragon.leagueoflegends.com/cdn/' + environment.lolVersion + '/img/champion/' + champion.image.full"
+                    [alt]="champion.name"
+                />
+                <span class="name">{{ champion.name }}</span>
+            </div>
+        }
+    </div>
+} @else {
+    <p>Chargement des champions...</p>
+}

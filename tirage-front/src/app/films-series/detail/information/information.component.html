@@ -1,11 +1,47 @@
 <div class="bloc">
-    <div class="title"><span>Type :</span> {{titre?.release_date ? 'Film' : 'Série'}}</div>
-    <div class="title"><span>Statut :</span> {{titre?.status ?? titreDetail?.status}}</div>
-    <div class="title"><span>Date de sortie :</span> {{titre?.release_date ?? titreDetail?.release_date ?? titre?.first_air_date ?? titreDetail?.first_air_date}}</div>
-    @if (titreDetail?.last_air_date) {
-        <div class="title"><span>Dernier épisode sorti le :</span> {{titreDetail?.last_air_date}}</div>
-    }
-    <div class="title"><span>Origine :</span> {{titre?.origin_country ?? titreDetail?.origin_country}}</div>
-    <div class="title"><span>Genres :</span> {{getGenres()}}</div>
-    <app-star-rating [note]="noteAverage()" [context]="'detail-page'"></app-star-rating>
+    <div class="overview-cta">
+        <div class="overview">
+            {{titre.overview}}
+        </div>
+        <div class="cta">
+            @if (!addedToList()) {
+                <button class="btn-secondary watchlist" (click)="$event.stopPropagation(); addToList(titre)">
+                    <svg class="icon plus" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 8H0V6H6V0H8V6H14V8H8V14H6V8V8"/>
+                    </svg>
+                    Ajouter à ma liste
+                </button>
+            } @else {
+                <button class="btn-secondary watchlist" (click)="$event.stopPropagation(); removeFromList(titre)">
+                    <svg class="icon check" fill="#FFFFFF" width="14" height="14" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1827.701 303.065 698.835 1431.801 92.299 825.266 0 917.564 698.835 1616.4 1919.869 395.234z" fill-rule="evenodd"/>
+                    </svg>
+                    Retirer de ma liste
+                </button>
+            }
+            <button class="btn-secondary review" (click)="$event.stopPropagation(); removeFromList(titre)">
+                <svg class="icon check" fill="#FFFFFF" width="14" height="14" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1827.701 303.065 698.835 1431.801 92.299 825.266 0 917.564 698.835 1616.4 1919.869 395.234z" fill-rule="evenodd"/>
+                </svg>
+                Ajouter un avis
+            </button>
+            <button class="btn-secondary share" (click)="$event.stopPropagation(); removeFromList(titre)">
+                <svg class="icon check" fill="#FFFFFF" width="14" height="14" viewBox="0 0 1920 1920" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1827.701 303.065 698.835 1431.801 92.299 825.266 0 917.564 698.835 1616.4 1919.869 395.234z" fill-rule="evenodd"/>
+                </svg>
+                Partager
+            </button>
+        </div>
+    </div>
+
+
+<!--    <div class="title"><span>Type :</span> {{titre?.release_date ? 'Film' : 'Série'}}</div>-->
+<!--    <div class="title"><span>Statut :</span> {{titre?.status ?? titreDetail?.status}}</div>-->
+<!--    <div class="title"><span>Date de sortie :</span> {{titre?.release_date ?? titreDetail?.release_date ?? titre?.first_air_date ?? titreDetail?.first_air_date}}</div>-->
+<!--    @if (titreDetail?.last_air_date) {-->
+<!--        <div class="title"><span>Dernier épisode sorti le :</span> {{titreDetail?.last_air_date}}</div>-->
+<!--    }-->
+<!--    <div class="title"><span>Origine :</span> {{titre?.origin_country ?? titreDetail?.origin_country}}</div>-->
+<!--    <div class="title"><span>Genres :</span> {{getGenres()}}</div>-->
+<!--    <app-star-rating [note]="noteAverage()" [context]="'detail-page'"></app-star-rating>-->
 </div>

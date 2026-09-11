@@ -1,4 +1,4 @@
-import {Component, effect, OnInit, signal, WritableSignal} from '@angular/core';
+import {Component, computed, effect, OnInit, signal, WritableSignal} from '@angular/core';
 import {MainPageService} from "./services/main-page.service";
 import {ListeTitresDragComponent} from "../../shared/components/liste-titres-drag/liste-titres-drag.component";
 import { DragScrollComponent, DragScrollItemDirective } from 'ngx-drag-scroll';
@@ -7,6 +7,8 @@ import {MatDialog} from "@angular/material/dialog";
 import {ListeTitresComponent} from "../../shared/components/liste-titres/liste-titres.component";
 import {DetailService} from "../detail/services/detail.service";
 import {LoaderMovieComponent} from "../../shared/loader/loader-movie/loader-movie.component";
+import {DecimalPipe} from "@angular/common";
+import {MyListService} from "../my-account/my-list/services/my-list.service";
 
 
 @Component({
@@ -16,24 +18,29 @@ import {LoaderMovieComponent} from "../../shared/loader/loader-movie/loader-movi
         DragScrollComponent,
         DragScrollItemDirective,
         ListeTitresComponent,
-        LoaderMovieComponent
+        LoaderMovieComponent,
+        DecimalPipe
     ],
     templateUrl: './main-page.component.html',
     styleUrl: './main-page.component.sass'
 })
 export class MainPageComponent implements OnInit {
-    constructor(private mainPageService: MainPageService, private dialog: MatDialog, private detailService: DetailService) {
+    constructor(private mainPageService: MainPageService, private dialog: MatDialog, private detailService: DetailService, private myListService: MyListService) {
         effect(() => {
             if (this.selectedType() === "movie") {
                 this.mainPageService.getLatestMovies();
                 this.mainPageService.getMovieTrending();
                 this.mainPageService.getMoviesPopular();
+                this.myListService.getMyList()
+
             }
             if (this.selectedType() === "tv") {
                 this.mainPageService.getLatestSeries();
                 this.mainPageService.getSeriesTopRated();
                 this.mainPageService.getSeriesTrending();
                 this.mainPageService.getSeriesPopular();
+                this.myListService.getMyList()
+
             }
         });
     }
@@ -46,6 +53,7 @@ export class MainPageComponent implements OnInit {
     selectedType: WritableSignal<any> = this.mainPageService.selectedType;
     ongletToDisplay: WritableSignal<any> = signal('main')
     titlesGenre: WritableSignal<any> = this.mainPageService.titlesGenre;
+    listGenres: WritableSignal<any> = this.mainPageService.listGenres;
 
     //Series
     seriesTopRated: WritableSignal<any> = this.mainPageService.seriesTopRated;
@@ -56,18 +64,25 @@ export class MainPageComponent implements OnInit {
     //Loader
     latestTitlesLoader: WritableSignal<any> = this.mainPageService.latestTitlesLoader
     latestTitlesGenreLoader: WritableSignal<any> = this.mainPageService.latestTitlesGenreLoader
+    loaderMyList: WritableSignal<any> = this.myListService.loaderMyList
+
+    myList: WritableSignal<any> = this.myListService.myList
+
+    protected readonly Math = Math;
 
 
     ngOnInit() {
+        this.mainPageService.getGenresList()
+        this.myListService.getMyList()
 	}
 
     openDetail(event: any) {
         this.detailService.getDetailIdMainPage(event).subscribe({
             next: (data: any) => {
                 this.dialog.open(DetailComponent, {
-                    width: data.backdrop_path ? '780px' : '1500px',
-                    maxWidth: '95vw',
-                    maxHeight: '95vh',
+                    width: '80vw',
+                    maxWidth: '90vw',
+                    maxHeight: '90vh',
                     height: 'auto',
                     data: { event: event },
                     autoFocus: false
@@ -83,6 +98,23 @@ export class MainPageComponent implements OnInit {
         if (this.ongletToDisplay() !== name) {
             this.ongletToDisplay.set(name)
         }
+    }
+
+    getGenres(idGenre: any): any {
+        return this.listGenres()?.find((genre: any) => genre.id === idGenre)?.name;
+    }
+
+    addToList(titre: any) {
+        const type = titre.release_date ? "movie" : "tv"
+        this.detailService.addToList(titre.id, type)
+    }
+
+    removeFromList(titre: any) {
+        this.detailService.removeFromList(titre.id)
+    }
+
+    isAddedToMyList(titre: any) {
+        return this.myList()?.find((item: any) => item.id === titre.id);
     }
 
     ngOnDestroy() {
