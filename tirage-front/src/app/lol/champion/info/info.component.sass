@@ -1,0 +1,116 @@
+@use "../../../../variables" as *
+
+.wrapper-info
+    display: flex
+    flex-direction: column
+    padding: 100px 50px
+    gap: 30px
+    overflow: hidden
+    z-index: 1
+
+    &::before
+        content: ''
+        position: absolute
+        top: 20%
+        left: -25px
+        transform: translateY(-50%)
+        width: 300px
+        height: 250px
+        background: $lol-white-second
+        filter: blur(70px)
+        opacity: 0.15
+        pointer-events: none
+        z-index: -1
+
+    // 2. Fond flou bleu/cyan à droite
+    &::after
+        content: ''
+        position: absolute
+        top: 50%
+        right: -20px
+        transform: translateY(-50%)
+        width: 180px
+        height: 180px
+        background: $lol-blue
+        filter: blur(80px)
+        opacity: 0.12
+        pointer-events: none
+        z-index: -1
+
+    .fil-arianne
+        display: flex
+        gap: 15px
+        align-items: center
+
+        .champion
+            color: $lol-yellow
+            font-weight: bold
+            font-size: 14px
+
+            .champion-name
+                font-weight: 500
+                color: $lol-white !important
+                text-transform: uppercase
+
+        .champion-key
+            font-weight: bold
+            font-size: 14px
+            color: $lol-blue !important
+
+    .wrapper-global
+        .left
+            display: flex
+            gap: 10px
+
+            .info-name
+                display: flex
+                flex-direction: column
+                gap: 5px
+                font-size: 14px
+
+                .badge
+                    display: flex
+                    gap: 5px
+                    text-transform: uppercase
+                    color: $lol-yellow
+                    align-items: center
+
+                    .type
+                        color: $lol-white-second !important
+
+                .champion-name
+                    font-size: 48px
+                    color: $lol-white !important
+                    text-transform: uppercase
+                    font-weight: 800
+
+                .champion-title
+                    color: $lol-yellow !important
+                    span
+                        font-weight: 500
+                        color: $lol-yellow !important
+                        font-size: 18px
+
+                .champion-ressource, .champion-difficulty
+                    display: flex
+                    gap: 10px
+                    font-size: 14px
+
+                    background-color: $lol-white !important
+
+                    .resource, .difficulte
+                        display: flex
+                        gap: 5px
+                        color: $lol-white-second !important
+                        align-items: center
+
+                    .ressource-data
+                        color: $lol-blue !important
+
+                    .difficulte-data
+                        color: $lol-white !important
+
+
+
+
+

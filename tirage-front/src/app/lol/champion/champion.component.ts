@@ -2,10 +2,13 @@ import { Component } from '@angular/core';
 import {LolService} from "../services/lol.service";
 import {ActivatedRoute} from "@angular/router";
 import {Champion} from "../../shared/interfaces/champion-interface";
+import {InfoComponent} from "./info/info.component";
 
 @Component({
   selector: 'app-champion',
-  imports: [],
+    imports: [
+        InfoComponent
+    ],
   templateUrl: './champion.component.html',
   styleUrl: './champion.component.sass',
 })
@@ -23,7 +26,7 @@ export class ChampionComponent {
     ngOnInit() {
         this.lolService.getChampionDetails(this.championId!).subscribe({
             next: data => {
-                // this.champion = data
+                this.champion = data
                 console.log(data);
             },
             error: err => {
